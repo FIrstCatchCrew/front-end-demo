@@ -1,38 +1,30 @@
-import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+// pages
+import PageNotFound from './pages/page-not-found/PageNotFound';
+import Home from './pages/home/Home';
+import AvailableCatches from './pages/available-catches/AvailableCatches';
+
+// components
+import NavigationBar from './components/navigation-bar/NavigationBar';
+import FooterBar from './components/Footer-bar/FooterBar';
 
 import './App.css';
 
 function App() {
-  const [fishCatch, setFishCatch] = useState([]);
-
-  const handleClick = async () => {
-    console.log('Button clicked');
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_CATCH_ENDPOINT}/available`
-      );
-      if (!res.ok) throw new Error('Failed to fetch catches');
-
-      const data = await res.json();
-      setFishCatch(data);
-      console.log('fish catches returned:', data);
-    } catch (err) {
-      console.error('Error:', err);
-    }
-  };
-
   return (
     <>
-      <div>
-        <h1>My Demo Frontend</h1>
-        <button onClick={handleClick}>See Available Catches</button>
-
-        <ul>
-          {fishCatch.map((t, index) => (
-            <li key={index}>{t.name}</li>
-          ))}
-        </ul>
+    <div className='app-container'>
+      <NavigationBar />
+      <div className="content-container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/available-catches" element={<AvailableCatches />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
       </div>
+      <FooterBar />
+    </div>
     </>
   );
 }
