@@ -1,40 +1,37 @@
-import { useState } from 'react';
+import Header from './components/Header.jsx'
+import MainBody from './components/MainBody.jsx'
+import ParallaxImage from "./components/ParallaxImage"
+import MenuItem from './pages/MenuItem.jsx';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import './App.css'
+import Contact from "./pages/Contact";
+import Supplier from "./pages/Supplier";
+import Story from "./pages/Story";
+import Menu from "./pages/Menu";
+import Catch from "./pages/Catch";
 
-import './App.css';
 
 function App() {
-  const [fishCatch, setFishCatch] = useState([]);
-
-  const handleClick = async () => {
-    console.log('Button clicked');
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_CATCH_ENDPOINT}/available`
-      );
-      if (!res.ok) throw new Error('Failed to fetch catches');
-
-      const data = await res.json();
-      setFishCatch(data);
-      console.log('fish catches returned:', data);
-    } catch (err) {
-      console.error('Error:', err);
-    }
-  };
 
   return (
-    <>
-      <div>
-        <h1>My Demo Frontend</h1>
-        <button onClick={handleClick}>See Available Catches</button>
-
-        <ul>
-          {fishCatch.map((t, index) => (
-            <li key={index}>{t.name}</li>
-          ))}
-        </ul>
-      </div>
-    </>
-  );
+  <Router>
+  <Header />
+  
+  <Routes>
+    <Route path="*" element={<MainBody />} />
+    <Route path="/mainbody" element={<MainBody />} />
+    <Route path="/contact" element={<Contact />} />
+    <Route path="/supplier" element={<Supplier />} />
+    <Route path="/story" element={<Story />} />
+    <Route path="/menu" element={<Menu />} />
+    <Route path="/catch" element={<Catch />} />
+    <Route path="/menu/:id"element={<MenuItem />} />
+  </Routes>
+  <ParallaxImage
+    src="src/assets/images/waves_layer3.png"
+    className="waves_layer3"/>
+  </Router>
+    )
 }
 
-export default App;
+export default App

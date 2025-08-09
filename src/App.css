@@ -1,10 +1,876 @@
-#root {
-  max-width: 1280px;
+@import "leaflet/dist/leaflet.css";  /* This id a free map server */
+/* global styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgba(92, 234, 255, 0.6);
+  background-image:linear-gradient(rgba(92, 234, 255, 0.9), white);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden; 
+}
+
+
+
+header {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  padding: 1vh 6vw;
+  top: 0;
+  left: 0;
+  border-bottom: 0.1rem solid #ff0808;
+  background-image: radial-gradient(farthest-side at 50% 100%, yellow, orange);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header nav {
+  max-width: 100%;
   margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 1rem; 
+}
+
+header a {
+  text-decoration: none;
+  color: #11068E;
+  padding: 0 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1.2rem;
+  min-height: 1.3rem;
+  display: inline-block; 
+  transition: transform 0.2s ease;
+}
+
+.notlogo a:hover {
+  transform: scale(1.1);
+
+}
+
+.hook {
+  color: black;
+}
+
+.logo {
+  font-size: 3.6rem; 
+  font-weight: 800;
+  white-space: nowrap;
+  color: rgba(250, 251, 252);
+  text-shadow: 
+    -0.12rem -0.12rem 0 #000,  
+     0.12rem -0.12rem 0 #000,
+    -0.12rem  0.12rem 0 #000,
+     0.12rem  0.12rem 0 #000; 
+
+}
+
+
+
+
+.boxleft,
+.boxright {
+  top: 25vh;
+  position: absolute;
+  width: 20vw;
+  height: auto;
+  /* line-height: 18vh; */
+  text-align: center;
+  
+  background:radial-gradient( #fff 30% , yellow, orange );
+  color: #333;
+  padding: 1.75vw;
+  z-index: 100;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius:3vw;
+  border: 0.15vw solid red;
+  box-shadow: 0 0 1vw #d12121;
+  transition: box-shadow 0.2s ease;
+}
+
+.boxleft {
+  left:28vw;
+}
+
+.boxright {
+  right: 28vw;
+}
+.boxleft:hover {
+  box-shadow: 0 0 2vw #d12121;
+}
+
+
+.boxleft a {
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  min-height: 2.2rem;
+  display: inline-block; 
+  font-size: 2rem;
+  z-index: 101;
+  
+}
+
+.boxleft a:link {
+  color:  #d12121;
+}
+
+.boxleft a:visited {
+  color: #11068E;;
+}
+
+.boxleft a:hover {
+  color: #ff0808;
+  transform: scale(1.1);
+}
+
+.boxleft a:active {
+  color: brown;
+  font-size: 2.0rem;
+}
+
+.boxright:hover {
+  box-shadow: 0 0 2vw #d12121;
+}
+
+.boxright a {
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  min-height: 2.2rem;
+  display: inline-block; 
+  font-size: 2rem;
+  z-index: 101;
+}
+
+.boxright a:link {
+  color:  #d12121;
+}
+
+.boxright a:visited {
+  color:  #11068E;;
+}
+
+.boxright a:hover {
+  color: #ff0808;
+  transform: scale(1.1);
+ 
+
+}
+
+.boxright a:active {
+  color: brown;
+  font-size: 2.0rem;
+}
+
+
+
+main {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sun {
+  position: absolute; 
+  z-index: 10; 
+  width: 15rem; 
+  height: auto; 
+  top: 10vh;
+  left:5vw;
+  pointer-events: none; 
+  user-select: none; 
+  
+}
+
+
+.parallax {
+  position: absolute;
+  width: 140vw; 
+  height: auto; 
+  bottom: 0;
+  animation: waveMotion 5s infinite ease-in-out; 
+}
+
+.waves_layer1 {
+
+  z-index: 5;
+  animation-duration: 4s;
+  left:-10vw;
+  bottom:-25vh;
+  
+}
+
+.waves_layer2 {
+  z-index: 8;
+  bottom:-10vh;
+  animation-duration: 6s;
+
+}
+
+.waves_layer3 {
+  z-index: 10;
+  animation-duration: 8s;
+}
+
+.fish-boundary {
+  position: absolute;
+  width: 100%; 
+  height: 40vh; 
+  bottom: 5vh; 
+  pointer-events: none; 
+  z-index: 100; 
+}
+
+.fish {
+  position: absolute;
+  width: 45vw;
+  left: 50%;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+
+  
+}
+
+
+
+
+.boat {
+  position: absolute;
+  z-index: 9;
+  bottom: -5vh;
+  width: 60vw; 
+  transition: left 1.0s ease;
+}
+
+
+.wharf {
+  position: absolute;
+  z-index: 9;
+  bottom: -12vh;
+  left: 0;
+  width: 70vw; 
+  transition: left 1s ease;
+}
+
+
+/* Wave Animation */
+@keyframes waveMotion {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-3%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes fishSwing {
+  0% {
+    transform: rotate(6deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(-6deg) scaleX(1);
+  }
+  100% {
+    transform: rotate(6deg) scaleX(1);
+  }
+}
+
+/* PAGE SPECIFIC STYLES  */
+
+/* Menu page */
+
+.newpage {
+  position: relative;
+  top: 17vh;
+  text-align: center;
+  z-index: 100;
+  color: #000;
+  
+}
+
+.menutitle {
+  color: #11068E;
+  font-size: 2.5rem;
+  text-shadow: 
+    -0.08rem -0.08rem 0 #ffff,  
+     0.08rem -0.08rem 0 #ffff,
+    -0.08rem  0.08rem 0 #ffff,
+     0.08rem  0.08rem 0 #ffff;
+}
+
+.menutable-container {
+  width: 90%;
+  max-height: 50vh; 
+  margin: 2vh auto;
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  border: .4vw solid #d12121; 
+  border-radius: 1.1rem;
+}
+
+.menutable {
+  width: 100%;
+  margin: 0  auto;
+  font-size: 18px;
+  border-collapse: separate;
+  border-spacing: 0;
+
+}
+
+
+th,td {
+  border-bottom: 0.30vw solid #d12121;
+  border-right: 0.30vw solid #d12121;
+  padding:0.5rem;
+  text-align: center;
+
+}
+
+tr td:first-child, 
+tr th:first-child {
+  border-left: 0.3vw solid #d12121;
+}
+
+
+tr th {
+  border-top: 0.3vw solid #d12121;
+  
+}
+
+tr:first-child th:first-child {
+  border-top-left-radius: 0.75rem;
+}
+
+
+tr:first-child th:last-child {
+  border-top-right-radius: 0.75rem;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 0.75rem;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius: 0.75rem;
+}
+
+th {
+  background:radial-gradient( #fff 40% , yellow, #d12121);
+  color: #11068E;
+}
+tr:nth-child(even) {
+  background-color: rgb(255, 255, 195)
+}
+
+tr:nth-child(odd) {
+  background-color: #ffcc85;
+}
+
+
+.menutable a {
+  font-size: 1.3rem;
+  text-decoration: none;
+  min-height: 1.5rem;
+  display: inline-block; 
+  transition: transform 0.2s ease;
+}
+
+.menutable a:link {
+  color:  #d12121;
+  font-weight: 700;
+}
+
+.menutable a:visited {
+  color: #11068E;
+}
+
+.menutable a:hover {
+  color: #ff0808;
+  transform: scale(1.1);
+}
+
+.menutable a:active {
+  color: brown;
+}
+
+/* Catch.jsx page */
+
+.newcatchpage {
+  position: relative;
+  top: 13vh;
+  text-align: center;
+  z-index: 100;
+  color: #000;
+  
+}
+
+.catchtitle {
+  color: #11068E;
+  font-size: 2.5rem;
+  text-shadow: 
+    -0.08rem -0.08rem 0 #ffff,  
+     0.08rem -0.08rem 0 #ffff,
+    -0.08rem  0.08rem 0 #ffff,
+     0.08rem  0.08rem 0 #ffff;
+  margin-bottom: 1vh;
+}
+
+.catchform {
+  width: 60%;
+  max-height: 500px;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 0.4vw solid #d12121;
+  border-radius: 1.1rem;
+  background-color: #ffcc85;
+  box-shadow: 0 0 1rem #d12121;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; 
+  overflow-y: auto;
+
+}
+
+.form-group {
+  flex: 1 1 calc(50% - 1rem);
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.1rem;
+}
+
+input {
+  padding: 0.2rem;
+  font-size: 1rem;
+  border: 0.2vw solid #d12121;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 0.3vw rgba(0, 0, 0, 0.1);
+}
+
+button {
+  width: auto; 
+  background-color: #11068E;
+  color: #fff;
+  border: .05vw solid;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 0 0 0.2rem #11068E;
+}
+
+button:hover {
+  background-color: #d12121;
+  box-shadow: 0 0 0.5rem #d12121
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* OUR STORY PAGE */
+
+
+.storypage {
+  position: relative;
+  top: 20vh;
+  text-align: center;
+  z-index: 100;
+  color: #000;
+  display: flex;
+  align-items: center;
+
+
+  
+}
+
+.storybox {
+  width: 40%;
+  margin: 0 auto;
+  font-size: 1.1rem;
   padding: 2rem;
+  border: 0.4vw solid #d12121;
+  border-radius: 1.1rem;
+  background-color: #ffcc85;
+  box-shadow: 0 0 1rem #d12121;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.picbox1 { 
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 4vw;
+  z-index: 1000;
+}
+
+.picbox2 { 
+  display: flex;
+  flex-direction: column;
+  margin: 0 4vw 0 0;
+  z-index: 1000;
+}
+
+.picbox1 img, .picbox2 img {
+  width: 15vw;
+  height: 24vh;
+  margin: 2vw;
+  object-fit: cover;
+  border: 0.4vw solid #d12121;
+  border-radius: 1.1rem;
+  box-shadow: 0 0 1rem #d12121;
+}
+
+
+
+.backbutton {
+  position: absolute;
+  bottom: 4vh;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 10vw;
+  height: auto;
+  text-align: center;
+  font-size: 1.2rem;
+  background:radial-gradient( #fff 30% , yellow, orange );
+  color: #333;
+  padding: 1.75vw;
+  z-index: 10000;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius:3vw;
+  border: 0.15vw solid red;
+  box-shadow: 0 0 1vw #d12121;
+  transition: box-shadow 0.1s ease;
+}
+
+.backbutton:hover {
+  background:radial-gradient( yellow 20% , orange, red );
+  box-shadow: 0 0 2vw #d12121;
+}
+
+
+/* MENUITEM PAGE */
+
+.menuitempage {
+  position: relative;
+  top: 10vh;
+  margin: 4vw;
+  z-index: 20;
+}
+.menuitembox {
+  width: 70%;
+  max-height: 400px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  padding: 2rem;
+  border: 0.4vw solid #d12121;
+  border-radius: 1.1rem;
+  background-color: #ffcc85;
+  box-shadow: 0 0 1rem #d12121;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  z-index: 25;
+}
+
+
+.menuitemdetails p {
+  font-size: 1.2rem;
+}
+
+.purchaseform {
+  margin-top: 2vh;
+}
+
+.purchaseform label {
+  display: block;
+  margin-bottom: 2vh;
+
+}
+
+.purchaseform input {
+  width: 40%;
+  padding: auto;
+  font-size: 1rem;
+  margin-bottom: 2vh;
+}
+
+.purchaseform button {
+  background-color: #11068E;
+  color: #fff;
+  width: 40%;
+  height:6vh;
+  margin: 2vh ;
+  text-align: center;
+  padding: 0.1vh;
+  font-size: 1rem;
+  font-weight: 700;
+  border: .05vw solid;
+  cursor: pointer;
+  border-radius:0.5rem;
+  box-shadow: 0 0 0.2rem #11068E;
+  transition: background-color 0.3s ease;
+}
+
+.purchaseform button:hover {
+  background-color: #d12121;
+  box-shadow: 0 0 0.5rem #d12121
+}
+
+.successmessage {
+  color: #d12121;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+
+.buyleftside {
+  width: 50%
+}
+
+.buyrightside {
+  width: 50%;
+  border:.15rem solid #ff0808; 
+  border-radius: 0.2rem;
+  
+
+}
+
+.mapcontainer {
+  height: 95%;
+}
+
+
+
+.timebanner {
+  height: 5%;
+  border-top: .15rem solid #ff0808;
+  font-size: 0.8rem;
+  color: black;
+  background-color: rgb(178, 210, 221)
+  
+}
+
+/* CONTACT PAGE */
+
+.contactpage {
+  position: relative;
+  top: 20vh;
+  width: 70%;
+  height: 400px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  padding: 1rem;
+  border: 0.4vw solid #d12121;
+  border-radius: 1.1rem;
+  background-color: #ffcc85;
+  box-shadow: 0 0 1rem #d12121;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  z-index: 25;
+}
+
+.contactbox {
+  padding: 10% 5%;
+  width: 50%;
   text-align: center;
 }
 
-.card {
-  padding: 2em;
+.contactmap {
+  width: 50%;
+  border: 0.1rem solid #d12121;
+  border-radius: 0.2rem;
+}
+
+.contactlogo {
+  font-size: 2.0rem; 
+  font-weight: 800;
+  white-space: nowrap;
+  color: rgba(250, 251, 252);
+  text-shadow: 
+    -0.08rem -0.08rem 0 #000,  
+     0.08rem -0.08rem 0 #000,
+    -0.08rem  0.08rem 0 #000,
+     0.08rem  0.08rem 0 #000; 
+
+}
+
+
+
+/* INFO AND REGISTRATION PAGE */
+
+
+.infobox {
+  position: relative;
+  top: 20vh;
+  width: 70%;
+  height: auto;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  padding: 2rem;
+  border: 0.4vw solid #d12121;
+  border-radius: 1.1rem;
+  background-color: #ffcc85;
+  box-shadow: 0 0 1rem #d12121;
+  text-align: center;
+  
+  z-index: 25;
+
+}
+ .constructicon {
+  width: 5vw;
+  height: auto;
+  color:#ff0808;
+  background-color: yellow;
+  border: 0.1vw solid #d12121;
+  border-radius: .5rem;
+  margin: 0 1vw;
+ }
+
+ .infoheader {
+  text-decoration: underline;
+  color: #11068E;
+ }
+
+ .infotext {
+  text-align: left;
+  margin: 0.5vw;
+ }
+
+
+  /* Responsive */
+
+@media (max-width: 1024px) {
+  header {
+    padding: 1vh 4vw;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+  }
+
+  header a {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+  }
+
+  .fish-boundary {
+    height: 15vh; 
+    bottom: 5vh; 
+  }
+
+  .boxleft,
+  .boxright { 
+    top:45vh;
+    width: 25vw;
+
+  }
+
+  .boxleft {
+    left:20vw;
+  }
+  
+  .boxright {
+    right:20vw;
+  }
+
+
+  .boat {
+    bottom:-3vh;
+
+  }
+
+  .storybox {
+    font-size: 1.0rem;
+  }
+
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 1vh 2vw;
+  }
+
+  header nav {
+    
+    align-items: center;
+  }
+
+  header ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .logo {
+    font-size: 2.3rem;
+  }
+
+  header a {
+    font-size: 0.8rem;
+    padding: 0.5rem 0;
+  }
+
+  .fish-boundary {
+    height: 10vh; 
+    bottom: 5vh; 
+  }
+
+  .storybox {
+    font-size: 0.8rem;
+  }
+
+  .backbutton {
+    font-size: 0.8rem;
+  }
+
+
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 1vh 1vw;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  header a {
+    font-size: 0.6rem;
+  }
+
+  .storybox {
+    font-size: 0.6rem;
+  }
+
+  .backbutton {
+    font-size: 0.6rem;
+  }
 }
