@@ -23,7 +23,7 @@ vi.stubEnv('VITE_USER_ENDPOINT', 'http://localhost:3000/api/users');
 vi.stubEnv('VITE_CATCH_ENDPOINT', 'http://localhost:3000/api/catches');
 
 // Mock fetch
-global.fetch = vi.fn();
+window.fetch.fetch = vi.fn();
 
 describe('AvailableCatches', () => {
   beforeEach(() => {
