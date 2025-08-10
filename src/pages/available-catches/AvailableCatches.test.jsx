@@ -23,14 +23,14 @@ vi.stubEnv('VITE_USER_ENDPOINT', 'http://localhost:3000/api/users');
 vi.stubEnv('VITE_CATCH_ENDPOINT', 'http://localhost:3000/api/catches');
 
 // Mock fetch
-window.fetch.fetch = vi.fn();
+window.fetch = vi.fn();
 
 describe('AvailableCatches', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     
     // Mock API responses
-    fetch.mockImplementation((url) => {
+    window.fetch.mockImplementation((url) => {
       if (url.includes('species')) {
         return Promise.resolve({
           ok: true,
@@ -139,7 +139,7 @@ describe('AvailableCatches', () => {
 
   it('should show "No catches" message when no data', async () => {
     // Mock empty response
-    fetch.mockImplementation((url) => {
+    window.fetch.mockImplementation((url) => {
       if (url.includes('catches')) {
         return Promise.resolve({
           ok: true,
@@ -147,7 +147,7 @@ describe('AvailableCatches', () => {
         });
       }
       // Return default mocks for other endpoints
-      return fetch.mockImplementation.mockReturnValue();
+      return window.fetch.mockImplementation.mockReturnValue();
     });
 
     renderWithRouter(<AvailableCatches />);
