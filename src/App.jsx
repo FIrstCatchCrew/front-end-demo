@@ -20,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/available-catches" element={<AvailableCatches />} />
+          <Route path="/available-catches/:filtertype/:filterValue" element={<AvailableCatches />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

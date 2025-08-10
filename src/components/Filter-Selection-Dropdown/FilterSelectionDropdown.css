@@ -1,0 +1,21 @@
+.filter-dropdown {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius); 
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0 10px 10px 0;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.filter-dropdown:hover {
+  border-color: var(--border-color-hover); 
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: var(--primary-color); /* Use the primary color */
+  box-shadow: 0 0 0 2px var(--highlight-color); /* Use the highlight color */
+}
