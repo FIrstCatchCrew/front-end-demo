@@ -1,21 +1,80 @@
+
 .filter-dropdown {
-  padding: 8px 12px;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
   font-size: 1rem;
+  font-weight: 500;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius); 
-  background-color: var(--background-color);
+  border-radius: 6px;
+  background-color: var(--surface-color);
   color: var(--text-color);
-  margin: 0 10px 10px 0;
+  margin: 0 0.5rem 0.5rem 0;
   cursor: pointer;
-  transition: border-color 0.2s ease-in-out;
+  transition: all 0.2s ease;
+  appearance: none;
+  min-width: 160px;
+  position: relative;
+  background-image: 
+    linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position: 
+    calc(100% - 16px) calc(50% + 2px),
+    calc(100% - 12px) calc(50% + 2px);
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+  box-shadow: 0 1px 3px var(--shadow-light);
 }
 
 .filter-dropdown:hover {
-  border-color: var(--border-color-hover); 
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 6px var(--shadow-light);
+  background-image: 
+    linear-gradient(45deg, transparent 50%, var(--primary-color) 50%),
+    linear-gradient(135deg, var(--primary-color) 50%, transparent 50%);
 }
 
 .filter-dropdown:focus {
   outline: none;
-  border-color: var(--primary-color); /* Use the primary color */
-  box-shadow: 0 0 0 2px var(--highlight-color); /* Use the highlight color */
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--highlight-color);
+  background-image: 
+    linear-gradient(45deg, transparent 50%, var(--primary-color) 50%),
+    linear-gradient(135deg, var(--primary-color) 50%, transparent 50%);
+}
+
+.filter-dropdown:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--disabled-bg-color);
+  color: var(--disabled-color);
+  border-color: var(--border-color);
+  box-shadow: none;
+}
+
+/* Style the options */
+.filter-dropdown option {
+  padding: 0.5rem;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+}
+
+.filter-dropdown option:hover {
+  background-color: var(--highlight-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .filter-dropdown {
+    width: 100%;
+    margin: 0 0 0.75rem 0;
+    padding: 1rem 2.5rem 1rem 1rem;
+    font-size: 1rem;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-dropdown {
+    padding: 0.875rem 2.5rem 0.875rem 1rem;
+    font-size: 0.95rem;
+  }
 }

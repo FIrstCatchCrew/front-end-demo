@@ -136,24 +136,3 @@
   color: var(--secondary-color);
   text-decoration: underline;
 }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .species-tooltip {
-    min-width: 250px;
-    max-width: 90vw;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .tooltip-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .species-image {
-    width: 80px;
-    height: 80px;
-  }
-}
