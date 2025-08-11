@@ -15,3 +15,5 @@ const apiRequest = async (baseUrl, path, options = {}) => {
     throw error;
   }
 };
+
+export { apiRequest };
