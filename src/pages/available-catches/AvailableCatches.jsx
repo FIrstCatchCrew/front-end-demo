@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { useAvailableCatches } from '../../hooks/UseAvailableCatches';
 import FilterSelectionDropdown from "../../components/Filter-Selection-Dropdown/FilterSelectionDropdown";
 import SpeciesTooltip from '../../components/species-tooltip/SpeciesTooltip';
