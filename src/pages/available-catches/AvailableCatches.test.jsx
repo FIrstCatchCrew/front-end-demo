@@ -17,10 +17,10 @@ vi.mock('react-router-dom', async () => {
 });
 
 // Mock environment variables
-vi.stubEnv('VITE_SPECIES_ENDPOINT', 'http://localhost:3000/api/species');
-vi.stubEnv('VITE_LANDING_ENDPOINT', 'http://localhost:3000/api/landings');
-vi.stubEnv('VITE_USER_ENDPOINT', 'http://localhost:3000/api/users');
-vi.stubEnv('VITE_CATCH_ENDPOINT', 'http://localhost:3000/api/catches');
+vi.stubEnv('VITE_SPECIES_ENDPOINT', 'http://52.3.6.17:8080/api/species');
+vi.stubEnv('VITE_LANDING_ENDPOINT', 'http://52.3.6.17:8080/api/landing');
+vi.stubEnv('VITE_FISHER_ENDPOINT', 'http://52.3.6.17:8080/api/fisher');
+vi.stubEnv('VITE_CATCH_ENDPOINT', 'http://52.3.6.17:8080/api/catch');
 
 // Mock fetch
 window.fetch = vi.fn();
@@ -35,30 +35,30 @@ describe('AvailableCatches', () => {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve([
-            { id: 1, name: 'Salmon' },
-            { id: 2, name: 'Tuna' }
+            { id: 1, name: 'Salmon', description: 'Atlantic Salmon', imageUrl: 'salmon.jpg', infoLink: 'info-salmon' },
+            { id: 2, name: 'Tuna', description: 'Bluefin Tuna', imageUrl: 'tuna.jpg', infoLink: 'info-tuna' }
           ])
         });
       }
-      if (url.includes('landings')) {
+      if (url.includes('landing')) {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve([
-            { id: 1, name: 'Port A' },
-            { id: 2, name: 'Port B' }
+            { id: 1, name: 'Port A', address: 'North Coast' },
+            { id: 2, name: 'Port B', address: 'South Coast' }
           ])
         });
       }
-      if (url.includes('fishers')) {
+      if (url.includes('fisher')) {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve([
-            { id: 1, username: 'fisher1' },
-            { id: 2, username: 'fisher2' }
+            { id: 1, userName: 'fisher1' },
+            { id: 2, userName: 'fisher2' }
           ])
         });
       }
-      if (url.includes('catches')) {
+      if (url.includes('catch')) {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve([
@@ -138,16 +138,39 @@ describe('AvailableCatches', () => {
   });
 
   it('should show "No catches" message when no data', async () => {
-    // Mock empty response
+    // Mock empty response for catches
     window.fetch.mockImplementation((url) => {
-      if (url.includes('catches')) {
+      if (url.includes('species')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([
+            { id: 1, name: 'Salmon', description: 'Atlantic Salmon', imageUrl: 'salmon.jpg', infoLink: 'info-salmon' }
+          ])
+        });
+      }
+      if (url.includes('landing')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([
+            { id: 1, name: 'Port A', address: 'North Coast' }
+          ])
+        });
+      }
+      if (url.includes('fisher')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([
+            { id: 1, userName: 'fisher1' }
+          ])
+        });
+      }
+      if (url.includes('catch')) {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve([])
         });
       }
-      // Return default mocks for other endpoints
-      return window.fetch.mockImplementation.mockReturnValue();
+      return Promise.reject(new Error('Unknown URL'));
     });
 
     renderWithRouter(<AvailableCatches />);
