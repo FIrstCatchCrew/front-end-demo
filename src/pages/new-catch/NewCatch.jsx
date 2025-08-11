@@ -16,18 +16,24 @@ const NewCatch = () => {
 
   if (isLoading) {
     return (
-      <div className="new-catch-container">
-        <h2>Add New Catch</h2>
-        <p>Loading form data...</p>
+      <div className="page-container">
+        <div className="page-header">
+          <h1 className="page-title">Add New Catch</h1>
+        </div>
+        <div className="page-content">
+          <p>Loading form data...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="new-catch-container">
-      <h2>Add New Catch</h2>
-      
-      {error && (
+    <div className="page-container">
+      <div className="page-header">
+        <h1 className="page-title">Add New Catch</h1>
+      </div>
+      <div className="page-content">
+        {error && (
         <div className="error-message">
           Error: {error.message || 'Something went wrong'}
         </div>
@@ -158,6 +164,7 @@ const NewCatch = () => {
           </button>
         </div>
       </form>
+      </div>
     </div>
   );
 };

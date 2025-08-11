@@ -1,21 +1,4 @@
-/* NewCatch.css */
-
-.new-catch-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-.new-catch-container h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--primary-color);
-  font-size: 2rem;
-  font-weight: 600;
-}
-
+/* Error message styling */
 .error-message {
   background-color: var(--error-bg-color);
   color: var(--error-color);
@@ -26,6 +9,7 @@
   text-align: center;
 }
 
+/* Form styling */
 .new-catch-form {
   display: flex;
   flex-direction: column;
@@ -53,10 +37,10 @@
 .form-group select,
 .form-group input {
   padding: 0.75rem;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 1rem;
-  background-color: var(--background-color);
+  background-color: var(--surface-color);
   color: var(--text-color);
   transition: border-color 0.2s ease;
 }
@@ -65,39 +49,18 @@
 .form-group input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px var(--highlight-color);
+  box-shadow: 0 0 0 2px var(--highlight-color);
 }
 
 .form-group select:hover,
 .form-group input:hover {
-  border-color: var(--border-color-hover);
-}
-
-.form-group select.error,
-.form-group input.error {
-  border-color: var(--error-color);
-  box-shadow: 0 0 0 3px var(--error-bg-color);
-}
-
-.form-group select:disabled,
-.form-group input:disabled {
-  background-color: var(--disabled-bg-color);
-  color: var(--disabled-color);
-  cursor: not-allowed;
-  opacity: 0.7;
+  border-color: var(--primary-color);
 }
 
 .validation-error {
   color: var(--error-color);
   font-size: 0.875rem;
   margin-top: 0.25rem;
-  display: flex;
-  align-items: center;
-}
-
-.validation-error::before {
-  content: "⚠️";
-  margin-right: 0.5rem;
 }
 
 .form-actions {
@@ -122,12 +85,13 @@
 }
 
 .reset-button {
-  background-color: var(--border-color);
+  background-color: var(--surface-color);
   color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .reset-button:hover:not(:disabled) {
-  background-color: var(--border-color-hover);
+  background-color: var(--highlight-color);
 }
 
 .submit-button {
@@ -137,82 +101,10 @@
 
 .submit-button:hover:not(:disabled) {
   background-color: #1e6ba8;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .reset-button:disabled,
 .submit-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.submit-button:disabled {
-  background-color: var(--border-color);
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .new-catch-container {
-    padding: 1rem;
-    margin: 0 1rem;
-  }
-
-  .new-catch-container h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .form-actions {
-    flex-direction: column-reverse;
-  }
-
-  .reset-button,
-  .submit-button {
-    width: 100%;
-  }
-}
-
-/* Loading state styles */
-.new-catch-container p {
-  text-align: center;
-  color: var(--text-color);
-  font-size: 1.1rem;
-}
-
-/* Success state (could be used for future enhancements) */
-.success-message {
-  background-color: var(--success-bg-color);
-  color: var(--success-color);
-  padding: 1rem;
-  border: 1px solid var(--success-border-color);
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-/* Focus management for accessibility */
-.new-catch-form input:focus,
-.new-catch-form select:focus {
-  z-index: 1;
-  position: relative;
-}
-
-/* Improve select dropdown styling with CSS-only arrow */
-.form-group select {
-  appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--dropdown-arrow-color) 50%),
-                    linear-gradient(135deg, var(--dropdown-arrow-color) 50%, transparent 50%);
-  background-position: calc(100% - 20px) calc(1em + 2px),
-                       calc(100% - 15px) calc(1em + 2px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-  padding-right: 2.5rem;
 }
