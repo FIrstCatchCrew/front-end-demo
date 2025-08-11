@@ -30,9 +30,9 @@ const FooterBar = () => {
       <div className="footer-container">
         <p className="footer-text">© 2025 FishCatch. All rights reserved.</p>
         <nav className="footer-nav">
-          <Link to="/" className="footer-link">Privacy</Link>
-          <Link to="/" className="footer-link">Terms</Link>
-          <Link to="/" className="footer-link">Contact</Link>
+          <Link to="/service-test" className="footer-link">Privacy</Link>
+          <Link to="/service-test" className="footer-link">Terms</Link>
+          <Link to="/service-test" className="footer-link">Contact</Link>
           <button 
             className="theme-toggle-footer"
             onClick={toggleTheme}
