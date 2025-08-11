@@ -1,4 +1,12 @@
 #root {
+  --primary-color: #2684d1;
+  --secondary-color: #b6c759;
+  --background-color: #ffffff;
+  --text-color: #212529;
+  --border-color: #ccc;
+  --border-color-hover: #888;
+  --highlight-color: rgba(0, 123, 255, 0.25);
+
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
