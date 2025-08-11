@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAvailableCatches } from '../../hooks/UseAvailableCatches';
 import FilterSelectionDropdown from "../../components/Filter-Selection-Dropdown/FilterSelectionDropdown";
 import SpeciesTooltip from '../../components/species-tooltip/SpeciesTooltip';
+import FisherTooltip from '../../components/fisher-tooltip/FisherTooltip';
 import './AvailableCatches.css';
 
 const AvailableCatches = () => {
@@ -60,6 +61,8 @@ const AvailableCatches = () => {
               catches.map(c => {
                 // Find species data for this catch
                 const speciesInfo = filterOptions.species.find(s => s.name === c.speciesName);
+                // Find fisher data for this catch
+                const fisherInfo = filterOptions.fishers.find(f => f.person?.username === c.fisherName || f.userName === c.fisherName);
                 
                 return (
                   <tr key={c.id}>
@@ -71,7 +74,12 @@ const AvailableCatches = () => {
                     </td>
                     <td>{c.quantityInKg}</td>
                     <td>${c.pricePerKg.toFixed(2)}</td>
-                    <td>{c.fisherName}</td>
+                    <td>
+                      <FisherTooltip 
+                        fisherName={c.fisherName} 
+                        fisherData={fisherInfo}
+                      />
+                    </td>
                     <td>{c.landingName}</td>
                   </tr>
                 );
