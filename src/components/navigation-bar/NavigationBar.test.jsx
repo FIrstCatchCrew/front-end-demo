@@ -15,7 +15,7 @@ describe('NavigationBar Component', () => {
 
     // 3. Assert that each link is present in the document
     expect(screen.getByRole('link', { name: /Home/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /New Catch/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Available Catches/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Page Not Found/i })).toBeInTheDocument();
   });
 });
