@@ -317,7 +317,7 @@ const ServiceTest = () => {
       }
       
       if (error.undefinedEndpoints && error.undefinedEndpoints.length > 0) {
-        formattedError += `⚠️  Undefined Environment Variables:\n`;
+        formattedError += `Undefined Environment Variables:\n`;
         error.undefinedEndpoints.forEach(env => {
           formattedError += `  • ${env}\n`;
         });
@@ -337,7 +337,7 @@ const ServiceTest = () => {
         <div className="result-header">
           <span className="timestamp">{result.timestamp}</span>
           <span className={`status ${result.success ? 'success' : 'error'}`}>
-            {result.success ? '✓ Success' : '✗ Error'}
+            {result.success ? 'Success' : 'Error'}
           </span>
         </div>
         <pre className="result-content">
@@ -362,38 +362,119 @@ const ServiceTest = () => {
           
           {/* Environment Variables Debug Section */}
           <div className="service-section debug-section">
-            <h3>🔧 Configuration Debug</h3>
+            <h3>Configuration Debug</h3>
             <div className="debug-info">
               <h4>Environment Variables Status:</h4>
               <div className="env-vars-grid">
                 <div className={`env-var ${import.meta.env.VITE_CATCH_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_CATCH_ENDPOINT:</strong> {import.meta.env.VITE_CATCH_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_CATCH_ENDPOINT:</strong> {import.meta.env.VITE_CATCH_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_CATCH_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_CATCH_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className={`env-var ${import.meta.env.VITE_FISHER_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_FISHER_ENDPOINT:</strong> {import.meta.env.VITE_FISHER_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_FISHER_ENDPOINT:</strong> {import.meta.env.VITE_FISHER_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_FISHER_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_FISHER_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className={`env-var ${import.meta.env.VITE_SPECIES_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_SPECIES_ENDPOINT:</strong> {import.meta.env.VITE_SPECIES_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_SPECIES_ENDPOINT:</strong> {import.meta.env.VITE_SPECIES_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_SPECIES_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_SPECIES_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className={`env-var ${import.meta.env.VITE_LANDING_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_LANDING_ENDPOINT:</strong> {import.meta.env.VITE_LANDING_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_LANDING_ENDPOINT:</strong> {import.meta.env.VITE_LANDING_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_LANDING_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_LANDING_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className={`env-var ${import.meta.env.VITE_ORDER_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_ORDER_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_ORDER_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_ORDER_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_ORDER_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className={`env-var ${import.meta.env.VITE_ORDER_ITEM_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_ORDER_ITEM_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ITEM_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_ORDER_ITEM_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ITEM_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_ORDER_ITEM_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_ORDER_ITEM_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className={`env-var ${import.meta.env.VITE_PERSON_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_PERSON_ENDPOINT:</strong> {import.meta.env.VITE_PERSON_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_PERSON_ENDPOINT:</strong> {import.meta.env.VITE_PERSON_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_PERSON_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_PERSON_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className={`env-var ${import.meta.env.VITE_USER_ROLE_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_USER_ROLE_ENDPOINT:</strong> {import.meta.env.VITE_USER_ROLE_ENDPOINT || '❌ UNDEFINED'}
+                  <strong>VITE_USER_ROLE_ENDPOINT:</strong> {import.meta.env.VITE_USER_ROLE_ENDPOINT || 'UNDEFINED'}
+                  {import.meta.env.VITE_USER_ROLE_ENDPOINT && (
+                    <div className="test-url">
+                      <button 
+                        onClick={() => window.open(import.meta.env.VITE_USER_ROLE_ENDPOINT, '_blank')}
+                        className="url-test-button"
+                      >
+                        Test URL
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="debug-help">
-                <p><strong>💡 Tip:</strong> If any endpoints show as "UNDEFINED", create or update your <code>.env</code> file in the project root with the missing variables.</p>
-                <p><strong>📝 Example .env file:</strong></p>
+                <p><strong>Tip:</strong> If any endpoints show as "UNDEFINED", create or update your <code>.env</code> file in the project root with the missing variables.</p>
+                <p><strong>URL Testing:</strong> Click "Test URL" buttons above to open endpoints in a new tab and see what they return.</p>
+                <p><strong>Example .env file:</strong></p>
                 <pre className="env-example">
 VITE_CATCH_ENDPOINT=http://localhost:8080/api/catch
 VITE_FISHER_ENDPOINT=http://localhost:8080/api/fisher
@@ -404,6 +485,15 @@ VITE_ORDER_ITEM_ENDPOINT=http://localhost:8080/api/order-item
 VITE_PERSON_ENDPOINT=http://localhost:8080/api/person
 VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
                 </pre>
+                <div className="common-issues">
+                  <h5> Common Issues:</h5>
+                  <ul>
+                    <li><strong>HTML instead of JSON:</strong> Usually means wrong URL or server not running</li>
+                    <li><strong>CORS errors:</strong> Backend needs to allow your frontend domain</li>
+                    <li><strong>404 errors:</strong> API endpoint doesn't exist or wrong path</li>
+                    <li><strong>Connection refused:</strong> Backend server is not running</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

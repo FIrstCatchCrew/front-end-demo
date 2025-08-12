@@ -1,24 +1,24 @@
 /* API Testing Styles */
 .api-test-container {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: 2rem auto;
   padding: 0 1rem;
 }
 
 /* Debug Section Styles */
 .debug-section {
-  background: #f0f8ff;
-  border: 2px solid #007bff;
+  background: var(--highlight-color);
+  border: 2px solid var(--primary-color);
   margin-bottom: 2rem;
 }
 
 .debug-section h3 {
-  color: #007bff;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 }
 
 .debug-info {
-  background: white;
+  background: var(--surface-color);
   padding: 1rem;
   border-radius: 8px;
   margin-top: 1rem;
@@ -39,20 +39,63 @@
 }
 
 .env-var.defined {
-  background: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
+  background: var(--success-bg-color);
+  border: 1px solid var(--success-border-color);
+  color: var(--success-color);
 }
 
 .env-var.undefined {
-  background: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
+  background: var(--error-bg-color);
+  border: 1px solid var(--error-border-color);
+  color: var(--error-color);
+}
+
+.test-url {
+  margin-top: 0.5rem;
+}
+
+.url-test-button {
+  background: var(--primary-color);
+  color: var(--surface-color);
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.url-test-button:hover {
+  background: var(--primary-color);
+  opacity: 0.8;
+}
+
+.common-issues {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--warning-bg-color);
+  border: 1px solid var(--warning-border-color);
+  border-radius: 6px;
+}
+
+.common-issues h5 {
+  margin: 0 0 0.5rem 0;
+  color: var(--warning-color);
+}
+
+.common-issues ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.common-issues li {
+  margin-bottom: 0.5rem;
+  color: var(--warning-color);
 }
 
 .debug-help {
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
+  background: var(--warning-bg-color);
+  border: 1px solid var(--warning-border-color);
   border-radius: 6px;
   padding: 1rem;
   margin-top: 1rem;
@@ -63,15 +106,15 @@
 }
 
 .debug-help code {
-  background: #f8f9fa;
+  background: var(--background-color);
   padding: 0.2rem 0.4rem;
   border-radius: 3px;
   font-family: monospace;
 }
 
 .env-example {
-  background: #2d3748;
-  color: #e2e8f0;
+  background: var(--text-color);
+  color: var(--surface-color);
   padding: 1rem;
   border-radius: 6px;
   font-size: 0.85rem;
@@ -80,23 +123,24 @@
 }
 
 .service-section {
-  background: #f8f9fa;
+  background: var(--surface-color);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow-light);
+  border: 1px solid var(--border-color);
 }
 
 .service-section h3 {
-  color: var(--primary-color, #007bff);
+  color: var(--primary-color);
   margin-bottom: 1rem;
   font-size: 1.5rem;
-  border-bottom: 2px solid var(--primary-color, #007bff);
+  border-bottom: 2px solid var(--primary-color);
   padding-bottom: 0.5rem;
 }
 
 .service-section h4 {
-  color: var(--secondary-color, #6c757d);
+  color: var(--text-muted);
   margin-bottom: 1rem;
   font-size: 1.25rem;
 }
@@ -109,8 +153,8 @@
 }
 
 .test-button {
-  background: var(--primary-color, #007bff);
-  color: white;
+  background: var(--primary-color);
+  color: var(--surface-color);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -122,62 +166,70 @@
 }
 
 .test-button:hover:not(:disabled) {
-  background: var(--primary-dark, #0056b3);
+  background: var(--primary-color);
+  opacity: 0.8;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
 .test-button:disabled {
-  background: #6c757d;
+  background: var(--disabled-bg-color);
+  color: var(--disabled-color);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
 .create-button {
-  background: var(--success-color, #28a745);
+  background: var(--success-color);
 }
 
 .create-button:hover:not(:disabled) {
-  background: var(--success-dark, #1e7e34);
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  background: var(--success-color);
+  opacity: 0.8;
+  box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
 .update-button {
-  background: var(--warning-color, #ffc107);
-  color: #212529;
+  background: var(--warning-color);
+  color: var(--text-color);
 }
 
 .update-button:hover:not(:disabled) {
-  background: var(--warning-dark, #e0a800);
-  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+  background: var(--warning-color);
+  opacity: 0.8;
+  box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
 .delete-button {
-  background: var(--danger-color, #dc3545);
+  background: var(--error-color);
 }
 
 .delete-button:hover:not(:disabled) {
-  background: var(--danger-dark, #c82333);
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+  background: var(--error-color);
+  opacity: 0.8;
+  box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
 .refresh-button {
-  background: var(--info-color, #17a2b8);
+  background: var(--secondary-color);
+  color: var(--text-color);
 }
 
 .refresh-button:hover:not(:disabled) {
-  background: var(--info-dark, #138496);
-  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+  background: var(--secondary-color);
+  opacity: 0.8;
+  box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
 .login-button {
-  background: var(--primary-color, #007bff);
+  background: var(--primary-color);
 }
 
 .login-button:hover:not(:disabled) {
-  background: var(--primary-dark, #0056b3);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  background: var(--primary-color);
+  opacity: 0.8;
+  box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
 .input-group {
@@ -189,25 +241,27 @@
 
 .test-input {
   padding: 0.5rem 0.75rem;
-  border: 2px solid #dee2e6;
+  border: 2px solid var(--border-color);
   border-radius: 6px;
   font-size: 0.9rem;
   min-width: 120px;
   transition: border-color 0.3s ease;
+  background-color: var(--surface-color);
+  color: var(--text-color);
 }
 
 .test-input:focus {
   outline: none;
-  border-color: var(--primary-color, #007bff);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--highlight-color);
 }
 
 .create-form {
-  background: white;
+  background: var(--surface-color);
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--border-color);
 }
 
 .form-inputs {
@@ -227,15 +281,15 @@
   margin-top: 1rem;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--border-color);
 }
 
 .test-result.success {
-  border-color: var(--success-color, #28a745);
+  border-color: var(--success-color);
 }
 
 .test-result.error {
-  border-color: var(--danger-color, #dc3545);
+  border-color: var(--error-color);
 }
 
 .result-header {
@@ -243,21 +297,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .test-result.success .result-header {
-  background: #d4edda;
+  background: var(--success-bg-color);
 }
 
 .test-result.error .result-header {
-  background: #f8d7da;
+  background: var(--error-bg-color);
 }
 
 .timestamp {
   font-size: 0.85rem;
-  color: var(--text-muted, #6c757d);
+  color: var(--text-muted);
   font-family: monospace;
 }
 
@@ -267,33 +321,34 @@
 }
 
 .status.success {
-  color: var(--success-color, #28a745);
+  color: var(--success-color);
 }
 
 .status.error {
-  color: var(--danger-color, #dc3545);
+  color: var(--error-color);
 }
 
 .result-content {
   padding: 1rem;
   margin: 0;
-  background: #f8f9fa;
+  background: var(--background-color);
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
   line-height: 1.4;
   overflow-x: auto;
   max-height: 300px;
   overflow-y: auto;
+  color: var(--text-color);
 }
 
 .test-result.success .result-content {
-  background: #f0f9f0;
-  color: #155724;
+  background: var(--success-bg-color);
+  color: var(--success-color);
 }
 
 .test-result.error .result-content {
-  background: #fdf2f2;
-  color: #721c24;
+  background: var(--error-bg-color);
+  color: var(--error-color);
 }
 
 /* Responsive Design */
