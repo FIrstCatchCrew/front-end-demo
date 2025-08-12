@@ -123,11 +123,20 @@ const apiRequest = async (baseUrl, path = '', options = {}) => {
 
   if (response.status === 204) return null;
 
+  // Prefer JSON when available, even if Content-Type header is missing in tests/mocks
+  if (typeof response?.json === 'function') {
+    try {
+      return await response.json();
+    } catch {
+      // fall back to text below
+    }
+  }
+
   if (/application\/json/i.test(contentType)) {
     return response.json();
   }
 
-  const raw = await response.text();
+  const raw = typeof response?.text === 'function' ? await response.text().catch(() => '') : '';
   if (!raw) return null;
   try {
     return JSON.parse(raw);

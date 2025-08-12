@@ -1,12 +1,17 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 
 // Mock the apiRequest module
 vi.mock('./ApiRequest', () => ({
   apiRequest: vi.fn(),
 }));
 
-import * as UserRoleService from './UserRoleService';
 import { apiRequest } from './ApiRequest';
+
+let UserRoleService;
+beforeAll(async () => {
+  vi.stubEnv('VITE_USER_ROLE_ENDPOINT', 'http://52.3.6.17:8080/api/role');
+  UserRoleService = await import('./UserRoleService');
+});
 
 describe('UserRoleService', () => {
   beforeEach(() => {
@@ -42,7 +47,7 @@ describe('UserRoleService', () => {
 
       const result = await UserRoleService.getAllUserRoles();
 
-      expect(apiRequest).toHaveBeenCalledWith(undefined, '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '/');
       expect(result).toEqual(mockData);
     });
 
@@ -51,7 +56,7 @@ describe('UserRoleService', () => {
 
       const result = await UserRoleService.getAllUserRoles();
 
-      expect(apiRequest).toHaveBeenCalledWith(undefined, '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '/');
       expect(result).toEqual([]);
     });
 
@@ -84,7 +89,7 @@ describe('UserRoleService', () => {
 
       const result = await UserRoleService.getUserRoleById(123);
 
-      expect(apiRequest).toHaveBeenCalledWith(undefined, '/123');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '/123');
       expect(result).toEqual(mockData);
     });
 
@@ -95,7 +100,7 @@ describe('UserRoleService', () => {
 
       await UserRoleService.getUserRoleById(largeRoleId);
 
-      expect(apiRequest).toHaveBeenCalledWith(undefined, '/999999999');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '/999999999');
     });
 
     it('should handle zero role ID', async () => {
@@ -104,7 +109,7 @@ describe('UserRoleService', () => {
 
       await UserRoleService.getUserRoleById(0);
 
-      expect(apiRequest).toHaveBeenCalledWith(undefined, '/0');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '/0');
     });
   });
 
@@ -121,7 +126,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.getUserRoleByType('admin');
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/type/ADMIN'
       );
       expect(result).toEqual(mockData);
@@ -134,7 +139,7 @@ describe('UserRoleService', () => {
       await UserRoleService.getUserRoleByType(UserRoleService.UserRoleType.FISHER);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/type/FISHER'
       );
     });
@@ -146,7 +151,7 @@ describe('UserRoleService', () => {
       await UserRoleService.getUserRoleByType('CuStOmEr');
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/type/CUSTOMER'
       );
     });
@@ -158,7 +163,7 @@ describe('UserRoleService', () => {
       await UserRoleService.getUserRoleByType('admin');
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/type/ADMIN'
       );
     });
@@ -177,7 +182,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.createUserRole(newRoleData);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/',
         {
           method: 'POST',
@@ -200,7 +205,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.createUserRole(minimalData);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/',
         {
           method: 'POST',
@@ -223,7 +228,7 @@ describe('UserRoleService', () => {
       await UserRoleService.createUserRole(enumRoleData);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/',
         {
           method: 'POST',
@@ -248,7 +253,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.updateUserRole(roleId, updateData);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/123',
         {
           method: 'PUT',
@@ -275,7 +280,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.updateUserRole(roleId, partialUpdate);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/456',
         {
           method: 'PUT',
@@ -295,7 +300,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.deleteUserRoleById(roleId);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/456',
         { method: 'DELETE' }
       );
@@ -309,7 +314,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.deleteUserRoleById(roleId);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/789',
         { method: 'DELETE' }
       );
@@ -329,7 +334,7 @@ describe('UserRoleService', () => {
       const result = await UserRoleService.deleteUserRoleById(roleId);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/999',
         { method: 'DELETE' }
       );
@@ -394,7 +399,7 @@ describe('UserRoleService', () => {
       await UserRoleService.createUserRole(newRole);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/',
         {
           method: 'POST',
@@ -415,7 +420,7 @@ describe('UserRoleService', () => {
       await UserRoleService.updateUserRole(1, updateData);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        undefined,
+        'http://52.3.6.17:8080/api/role',
         '/1',
         {
           method: 'PUT',

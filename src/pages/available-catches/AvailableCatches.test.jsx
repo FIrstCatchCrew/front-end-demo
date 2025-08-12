@@ -25,54 +25,53 @@ vi.stubEnv('VITE_CATCH_ENDPOINT', 'http://52.3.6.17:8080/api/catch');
 // Mock fetch
 window.fetch = vi.fn();
 
+const jsonResponse = (data) => ({
+  ok: true,
+  status: 200,
+  statusText: 'OK',
+  headers: { get: () => 'application/json' },
+  json: () => Promise.resolve(data),
+  text: () => Promise.resolve(JSON.stringify(data)),
+});
+
 describe('AvailableCatches', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     
     // Mock API responses
     window.fetch.mockImplementation((url) => {
-      if (url.includes('species')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([
-            { id: 1, name: 'Salmon', description: 'Atlantic Salmon', imageUrl: 'salmon.jpg', infoLink: 'info-salmon' },
-            { id: 2, name: 'Tuna', description: 'Bluefin Tuna', imageUrl: 'tuna.jpg', infoLink: 'info-tuna' }
-          ])
-        });
+      const u = String(url);
+      if (u.includes('species')) {
+        return Promise.resolve(jsonResponse([
+          { id: 1, name: 'Salmon', description: 'Atlantic Salmon', imageUrl: 'salmon.jpg', infoLink: 'info-salmon' },
+          { id: 2, name: 'Tuna', description: 'Bluefin Tuna', imageUrl: 'tuna.jpg', infoLink: 'info-tuna' }
+        ]));
       }
-      if (url.includes('landing')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([
-            { id: 1, name: 'Port A', address: 'North Coast' },
-            { id: 2, name: 'Port B', address: 'South Coast' }
-          ])
-        });
+      if (u.includes('landing')) {
+        return Promise.resolve(jsonResponse([
+          { id: 1, name: 'Port A', address: 'North Coast' },
+          { id: 2, name: 'Port B', address: 'South Coast' }
+        ]));
       }
-      if (url.includes('fisher')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([
-            { id: 1, userName: 'fisher1' },
-            { id: 2, userName: 'fisher2' }
-          ])
-        });
+      if (u.includes('fisher')) {
+        return Promise.resolve(jsonResponse([
+          { id: 1, userName: 'fisher1' },
+          { id: 2, userName: 'fisher2' }
+        ]));
       }
-      if (url.includes('catch')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([
-            {
-              id: 1,
-              speciesName: 'Salmon',
-              quantityInKg: 10,
-              pricePerKg: 25.50,
-              fisherName: 'fisher1',
-              landingName: 'Port A'
-            }
-          ])
-        });
+      if (u.includes('catch')) {
+        return Promise.resolve(jsonResponse([
+          {
+            id: 1,
+            speciesName: 'Salmon',
+            quantityInKg: 10,
+            pricePerKg: 25.50,
+            fisherName: 'fisher1',
+            landingName: 'Port A'
+          }
+        ]));
       }
+      return Promise.resolve(jsonResponse([]));
     });
   });
 
@@ -140,37 +139,26 @@ describe('AvailableCatches', () => {
   it('should show "No catches" message when no data', async () => {
     // Mock empty response for catches
     window.fetch.mockImplementation((url) => {
-      if (url.includes('species')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([
-            { id: 1, name: 'Salmon', description: 'Atlantic Salmon', imageUrl: 'salmon.jpg', infoLink: 'info-salmon' }
-          ])
-        });
+      const u = String(url);
+      if (u.includes('species')) {
+        return Promise.resolve(jsonResponse([
+          { id: 1, name: 'Salmon', description: 'Atlantic Salmon', imageUrl: 'salmon.jpg', infoLink: 'info-salmon' }
+        ]));
       }
-      if (url.includes('landing')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([
-            { id: 1, name: 'Port A', address: 'North Coast' }
-          ])
-        });
+      if (u.includes('landing')) {
+        return Promise.resolve(jsonResponse([
+          { id: 1, name: 'Port A', address: 'North Coast' }
+        ]));
       }
-      if (url.includes('fisher')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([
-            { id: 1, userName: 'fisher1' }
-          ])
-        });
+      if (u.includes('fisher')) {
+        return Promise.resolve(jsonResponse([
+          { id: 1, userName: 'fisher1' }
+        ]));
       }
-      if (url.includes('catch')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve([])
-        });
+      if (u.includes('catch')) {
+        return Promise.resolve(jsonResponse([]));
       }
-      return Promise.reject(new Error('Unknown URL'));
+      return Promise.resolve(jsonResponse([]));
     });
 
     renderWithRouter(<AvailableCatches />);

@@ -1,5 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import * as FisherService from './FisherService';
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 
 // Mock the apiRequest module
 vi.mock('./ApiRequest', () => ({
@@ -8,8 +7,12 @@ vi.mock('./ApiRequest', () => ({
 
 import { apiRequest } from './ApiRequest';
 
-// Mock environment variable
-vi.stubEnv('VITE_FISHER_ENDPOINT', 'http://52.3.6.17:8080/api/fisher');
+let FisherService;
+beforeAll(async () => {
+  // Stub env BEFORE importing the module so the constant captures the stubbed value
+  vi.stubEnv('VITE_FISHER_ENDPOINT', 'http://52.3.6.72:8080/api/fisher');
+  FisherService = await import('./FisherService');
+});
 
 describe('FisherService', () => {
   beforeEach(() => {
@@ -26,7 +29,7 @@ describe('FisherService', () => {
 
       const result = await FisherService.getAllFishers();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/fisher', '/fisher');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.72:8080/api/fisher', '/fisher');
       expect(result).toEqual(mockData);
     });
   });
@@ -38,7 +41,7 @@ describe('FisherService', () => {
 
       const result = await FisherService.getFisherById(123);
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/fisher', '/fisher/123');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.72:8080/api/fisher', '/fisher/123');
       expect(result).toEqual(mockData);
     });
   });
@@ -54,7 +57,7 @@ describe('FisherService', () => {
       const result = await FisherService.getCatchesByFisherId(123);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher/123/catches'
       );
       expect(result).toEqual(mockData);
@@ -71,7 +74,7 @@ describe('FisherService', () => {
       const result = await FisherService.getExpiredUnsoldCatchesByFisherId(123);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher/123/catches/expired'
       );
       expect(result).toEqual(mockData);
@@ -88,7 +91,7 @@ describe('FisherService', () => {
       const result = await FisherService.getSoldCatchesByFisherId(123);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher/123/catches/sold'
       );
       expect(result).toEqual(mockData);
@@ -108,7 +111,7 @@ describe('FisherService', () => {
       const result = await FisherService.createFisher(newFisherData);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher',
         {
           method: 'POST',
@@ -134,7 +137,7 @@ describe('FisherService', () => {
       const result = await FisherService.updateFisher(fisherId, updateData);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher/123',
         {
           method: 'PUT',
@@ -154,7 +157,7 @@ describe('FisherService', () => {
       const result = await FisherService.deleteFisherById(fisherId);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher/456',
         { method: 'DELETE' }
       );
@@ -171,7 +174,7 @@ describe('FisherService', () => {
       await FisherService.getFisherById(largeFisherId);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher/999999999'
       );
     });
@@ -183,7 +186,7 @@ describe('FisherService', () => {
       await FisherService.getFisherById(0);
 
       expect(apiRequest).toHaveBeenCalledWith(
-        'http://52.3.6.17:8080/api/fisher',
+        'http://52.3.6.72:8080/api/fisher',
         '/fisher/0'
       );
     });

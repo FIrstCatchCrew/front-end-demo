@@ -256,7 +256,7 @@ const ServiceTest = () => {
 
       errorDetails.environmentVariables = envVars;
       errorDetails.undefinedEndpoints = Object.entries(envVars)
-        .filter(([key, value]) => !value)
+        .filter(([, value]) => !value)
         .map(([key]) => key);
 
       setTestResults(prev => ({ 
