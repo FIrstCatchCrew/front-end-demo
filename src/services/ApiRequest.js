@@ -101,7 +101,7 @@ const apiRequest = async (baseUrl, path = '', options = {}) => {
     throw err;
   }
 
-  const contentType = response.headers.get('content-type') || '';
+  const contentType = response.headers?.get?.('content-type') || '';
   if (shouldDebug) {
     console.log(`Response status: ${response.status}, Content-Type: ${contentType}`);
   }
