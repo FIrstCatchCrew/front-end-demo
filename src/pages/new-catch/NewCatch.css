@@ -9,6 +9,29 @@
   text-align: center;
 }
 
+/* Collapsible request payload styling */
+.error-payload {
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+.error-payload summary {
+  cursor: pointer;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.error-payload-pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--surface-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+}
+
 /* Form styling */
 .new-catch-form {
   display: flex;

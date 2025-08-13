@@ -35,7 +35,15 @@ const NewCatch = () => {
       <div className="page-content">
         {error && (
         <div className="error-message">
-          Error: {error.message || 'Something went wrong'}
+          <div>Error: {error.message || 'Something went wrong'}</div>
+          {error.payload && (
+            <details className="error-payload">
+              <summary>Request payload</summary>
+              <pre className="error-payload-pre">
+                {JSON.stringify(error.payload, null, 2)}
+              </pre>
+            </details>
+          )}
         </div>
       )}
 
