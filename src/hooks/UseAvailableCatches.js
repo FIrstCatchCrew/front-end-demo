@@ -56,9 +56,13 @@ export function useAvailableCatches() {
       setIsLoading(true);
       setError(null);
       try {
-        // Use the centralized searchCatches service function
+        // Use the centralized searchCatches service function (species, landing)
         const data = await searchCatches(filters.species, filters.landing);
-        setCatches(data);
+        // Apply fisher filter client-side using catch.fisherName
+        const filtered = filters.fisher
+          ? data.filter(c => c.fisherName === filters.fisher)
+          : data;
+        setCatches(filtered);
       } catch (err) {
         console.error("Error fetching catches:", err);
         setError(err);
