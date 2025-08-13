@@ -94,20 +94,28 @@ const ServiceTest = () => {
       password: ''
     },
     newCatch: {
-      speciesId: '',
-      fisherId: '',
-      landingId: '',
-      quantity: '',
-      pricePerKg: '',
-      dateCaught: ''
+      speciesName: '',
+      quantityInKg: '',
+      price: '',
+      fisherName: '',
+      timeStamp: '',
+      latitude: '',
+      longitude: '',
+      landingName: '',
+      pickupTime: '',
+      pickup_instructions: ''
     },
     updateCatch: {
-      speciesId: '',
-      fisherId: '',
-      landingId: '',
-      quantity: '',
-      pricePerKg: '',
-      dateCaught: ''
+      speciesName: '',
+      quantityInKg: '',
+      price: '',
+      fisherName: '',
+      timeStamp: '',
+      latitude: '',
+      longitude: '',
+      landingName: '',
+      pickupTime: '',
+      pickup_instructions: ''
     },
     newFisher: {
       firstName: '',
@@ -122,12 +130,18 @@ const ServiceTest = () => {
       email: ''
     },
     newSpecies: {
+      id: '',
       name: '',
-      description: ''
+      description: '',
+      imageUrl: '',
+      infoLink: ''
     },
     updateSpecies: {
+      id: '',
       name: '',
-      description: ''
+      description: '',
+      imageUrl: '',
+      infoLink: ''
     },
     newLanding: {
       name: '',
@@ -284,6 +298,21 @@ const ServiceTest = () => {
     }
   };
 
+  // Map Catch payload to expected API shape and coerce types/nulls
+  const buildCatchPayload = (obj) => ({
+    speciesName: obj.speciesName || null,
+    quantityInKg: obj.quantityInKg !== '' ? Number(obj.quantityInKg) : null,
+    price: obj.price !== '' ? Number(obj.price) : null,
+    available: undefined, // server-calculated; omit by being undefined
+    fisherName: obj.fisherName || null,
+    timeStamp: obj.timeStamp || null,
+    latitude: obj.latitude !== '' ? Number(obj.latitude) : null,
+    longitude: obj.longitude !== '' ? Number(obj.longitude) : null,
+    landingName: obj.landingName || null,
+    pickupTime: obj.pickupTime || null,
+    pickup_instructions: obj.pickup_instructions || null,
+  });
+
   const renderTestResult = (endpointName) => {
     const result = testResults[endpointName];
     if (!result) return null;
@@ -361,121 +390,121 @@ const ServiceTest = () => {
         <div className="api-test-container">
           
           {/* Environment Variables Debug Section */}
-          <div className="service-section debug-section">
-            <h3>Configuration Debug</h3>
-            <div className="debug-info">
-              <h4>Environment Variables Status:</h4>
-              <div className="env-vars-grid">
-                <div className={`env-var ${import.meta.env.VITE_CATCH_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_CATCH_ENDPOINT:</strong> {import.meta.env.VITE_CATCH_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_CATCH_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_CATCH_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={`env-var ${import.meta.env.VITE_FISHER_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_FISHER_ENDPOINT:</strong> {import.meta.env.VITE_FISHER_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_FISHER_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_FISHER_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={`env-var ${import.meta.env.VITE_SPECIES_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_SPECIES_ENDPOINT:</strong> {import.meta.env.VITE_SPECIES_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_SPECIES_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_SPECIES_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={`env-var ${import.meta.env.VITE_LANDING_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_LANDING_ENDPOINT:</strong> {import.meta.env.VITE_LANDING_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_LANDING_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_LANDING_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={`env-var ${import.meta.env.VITE_ORDER_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_ORDER_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_ORDER_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_ORDER_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={`env-var ${import.meta.env.VITE_ORDER_ITEM_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_ORDER_ITEM_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ITEM_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_ORDER_ITEM_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_ORDER_ITEM_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={`env-var ${import.meta.env.VITE_PERSON_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_PERSON_ENDPOINT:</strong> {import.meta.env.VITE_PERSON_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_PERSON_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_PERSON_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className={`env-var ${import.meta.env.VITE_USER_ROLE_ENDPOINT ? 'defined' : 'undefined'}`}>
-                  <strong>VITE_USER_ROLE_ENDPOINT:</strong> {import.meta.env.VITE_USER_ROLE_ENDPOINT || 'UNDEFINED'}
-                  {import.meta.env.VITE_USER_ROLE_ENDPOINT && (
-                    <div className="test-url">
-                      <button 
-                        onClick={() => window.open(import.meta.env.VITE_USER_ROLE_ENDPOINT, '_blank')}
-                        className="url-test-button"
-                      >
-                        Test URL
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="debug-help">
-                <p><strong>Tip:</strong> If any endpoints show as "UNDEFINED", create or update your <code>.env</code> file in the project root with the missing variables.</p>
-                <p><strong>URL Testing:</strong> Click "Test URL" buttons above to open endpoints in a new tab and see what they return.</p>
-                <p><strong>Example .env file:</strong></p>
-                <pre className="env-example">
+          <details className="service-section debug-section" open>
+            <summary>Configuration Debug</summary>
+             <div className="debug-info">
+               <h4>Environment Variables Status:</h4>
+               <div className="env-vars-grid">
+                 <div className={`env-var ${import.meta.env.VITE_CATCH_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_CATCH_ENDPOINT:</strong> {import.meta.env.VITE_CATCH_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_CATCH_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_CATCH_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+                 <div className={`env-var ${import.meta.env.VITE_FISHER_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_FISHER_ENDPOINT:</strong> {import.meta.env.VITE_FISHER_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_FISHER_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_FISHER_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+                 <div className={`env-var ${import.meta.env.VITE_SPECIES_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_SPECIES_ENDPOINT:</strong> {import.meta.env.VITE_SPECIES_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_SPECIES_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_SPECIES_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+                 <div className={`env-var ${import.meta.env.VITE_LANDING_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_LANDING_ENDPOINT:</strong> {import.meta.env.VITE_LANDING_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_LANDING_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_LANDING_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+                 <div className={`env-var ${import.meta.env.VITE_ORDER_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_ORDER_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_ORDER_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_ORDER_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+                 <div className={`env-var ${import.meta.env.VITE_ORDER_ITEM_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_ORDER_ITEM_ENDPOINT:</strong> {import.meta.env.VITE_ORDER_ITEM_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_ORDER_ITEM_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_ORDER_ITEM_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+                 <div className={`env-var ${import.meta.env.VITE_PERSON_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_PERSON_ENDPOINT:</strong> {import.meta.env.VITE_PERSON_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_PERSON_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_PERSON_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+                 <div className={`env-var ${import.meta.env.VITE_USER_ROLE_ENDPOINT ? 'defined' : 'undefined'}`}>
+                   <strong>VITE_USER_ROLE_ENDPOINT:</strong> {import.meta.env.VITE_USER_ROLE_ENDPOINT || 'UNDEFINED'}
+                   {import.meta.env.VITE_USER_ROLE_ENDPOINT && (
+                     <div className="test-url">
+                       <button 
+                         onClick={() => window.open(import.meta.env.VITE_USER_ROLE_ENDPOINT, '_blank')}
+                         className="url-test-button"
+                       >
+                         Test URL
+                       </button>
+                     </div>
+                   )}
+                 </div>
+               </div>
+               <div className="debug-help">
+                 <p><strong>Tip:</strong> If any endpoints show as "UNDEFINED", create or update your <code>.env</code> file in the project root with the missing variables.</p>
+                 <p><strong>URL Testing:</strong> Click "Test URL" buttons above to open endpoints in a new tab and see what they return.</p>
+                 <p><strong>Example .env file:</strong></p>
+                 <pre className="env-example">
 VITE_CATCH_ENDPOINT=http://localhost:8080/api/catch
 VITE_FISHER_ENDPOINT=http://localhost:8080/api/fisher
 VITE_SPECIES_ENDPOINT=http://localhost:8080/api/species
@@ -484,31 +513,31 @@ VITE_ORDER_ENDPOINT=http://localhost:8080/api/order
 VITE_ORDER_ITEM_ENDPOINT=http://localhost:8080/api/order-item
 VITE_PERSON_ENDPOINT=http://localhost:8080/api/person
 VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
-                </pre>
-                <div className="common-issues">
-                  <h5> Common Issues:</h5>
-                  <ul>
-                    <li><strong>HTML instead of JSON:</strong> Usually means wrong URL or server not running</li>
-                    <li><strong>CORS errors:</strong> Backend needs to allow your frontend domain</li>
-                    <li><strong>404 errors:</strong> API endpoint doesn't exist or wrong path</li>
-                    <li><strong>Connection refused:</strong> Backend server is not running</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+                 </pre>
+                 <div className="common-issues">
+                   <h5> Common Issues:</h5>
+                   <ul>
+                     <li><strong>HTML instead of JSON:</strong> Usually means wrong URL or server not running</li>
+                     <li><strong>CORS errors:</strong> Backend needs to allow your frontend domain</li>
+                     <li><strong>404 errors:</strong> API endpoint doesn't exist or wrong path</li>
+                     <li><strong>Connection refused:</strong> Backend server is not running</li>
+                   </ul>
+                 </div>
+               </div>
+             </div>
+          </details>
           
           {/* Catch Service Tests */}
-          <div className="service-section">
-            <h3>Catch Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllCatches', getAllCatches)}
-                disabled={loading.getAllCatches}
-                className="test-button"
-              >
-                {loading.getAllCatches ? 'Testing...' : 'Get All Catches'}
-              </button>
+          <details className="service-section" open>
+            <summary>Catch Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllCatches', getAllCatches)}
+                 disabled={loading.getAllCatches}
+                 className="test-button"
+               >
+                 {loading.getAllCatches ? 'Testing...' : 'Get All Catches'}
+               </button>
               
               <button 
                 onClick={() => testEndpoint('getAvailableCatches', getAvailableCatches)}
@@ -599,19 +628,19 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('deleteCatchById')}
             {renderTestResult('getCatchesBySpeciesName')}
             {renderTestResult('searchCatches')}
-          </div>
+          </details>
 
           {/* Fisher Service Tests */}
-          <div className="service-section">
-            <h3>Fisher Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllFishers', getAllFishers)}
-                disabled={loading.getAllFishers}
-                className="test-button"
-              >
-                {loading.getAllFishers ? 'Testing...' : 'Get All Fishers'}
-              </button>
+          <details className="service-section" open>
+            <summary>Fisher Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllFishers', getAllFishers)}
+                 disabled={loading.getAllFishers}
+                 className="test-button"
+               >
+                 {loading.getAllFishers ? 'Testing...' : 'Get All Fishers'}
+               </button>
               
               <div className="input-group">
                 <input
@@ -665,19 +694,19 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('getExpiredUnsoldCatchesByFisherId')}
             {renderTestResult('getSoldCatchesByFisherId')}
             {renderTestResult('deleteFisherById')}
-          </div>
+          </details>
 
           {/* Species Service Tests */}
-          <div className="service-section">
-            <h3>Species Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllSpecies', getAllSpecies)}
-                disabled={loading.getAllSpecies}
-                className="test-button"
-              >
-                {loading.getAllSpecies ? 'Testing...' : 'Get All Species'}
-              </button>
+          <details className="service-section" open>
+            <summary>Species Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllSpecies', getAllSpecies)}
+                 disabled={loading.getAllSpecies}
+                 className="test-button"
+               >
+                 {loading.getAllSpecies ? 'Testing...' : 'Get All Species'}
+               </button>
               
               <div className="input-group">
                 <input
@@ -707,19 +736,19 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('getAllSpecies')}
             {renderTestResult('getSpeciesById')}
             {renderTestResult('deleteSpeciesById')}
-          </div>
+          </details>
 
           {/* Landing Service Tests */}
-          <div className="service-section">
-            <h3>Landing Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllLandings', getAllLandings)}
-                disabled={loading.getAllLandings}
-                className="test-button"
-              >
-                {loading.getAllLandings ? 'Testing...' : 'Get All Landings'}
-              </button>
+          <details className="service-section" open>
+            <summary>Landing Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllLandings', getAllLandings)}
+                 disabled={loading.getAllLandings}
+                 className="test-button"
+               >
+                 {loading.getAllLandings ? 'Testing...' : 'Get All Landings'}
+               </button>
               
               <div className="input-group">
                 <input
@@ -749,19 +778,19 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('getAllLandings')}
             {renderTestResult('getLandingById')}
             {renderTestResult('deleteLandingById')}
-          </div>
+          </details>
 
           {/* Order Service Tests */}
-          <div className="service-section">
-            <h3>Order Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllOrders', getAllOrders)}
-                disabled={loading.getAllOrders}
-                className="test-button"
-              >
-                {loading.getAllOrders ? 'Testing...' : 'Get All Orders'}
-              </button>
+          <details className="service-section" open>
+            <summary>Order Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllOrders', getAllOrders)}
+                 disabled={loading.getAllOrders}
+                 className="test-button"
+               >
+                 {loading.getAllOrders ? 'Testing...' : 'Get All Orders'}
+               </button>
               
               <div className="input-group">
                 <input
@@ -809,19 +838,19 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('getOrderById')}
             {renderTestResult('deleteOrderById')}
             {renderTestResult('getOrdersByCustomer')}
-          </div>
+          </details>
 
           {/* Order Item Service Tests */}
-          <div className="service-section">
-            <h3>Order Item Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllOrderItems', getAllOrderItems)}
-                disabled={loading.getAllOrderItems}
-                className="test-button"
-              >
-                {loading.getAllOrderItems ? 'Testing...' : 'Get All Order Items'}
-              </button>
+          <details className="service-section" open>
+            <summary>Order Item Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllOrderItems', getAllOrderItems)}
+                 disabled={loading.getAllOrderItems}
+                 className="test-button"
+               >
+                 {loading.getAllOrderItems ? 'Testing...' : 'Get All Order Items'}
+               </button>
               
               <div className="input-group">
                 <input
@@ -851,19 +880,19 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('getAllOrderItems')}
             {renderTestResult('getOrderItemById')}
             {renderTestResult('deleteOrderItemById')}
-          </div>
+          </details>
 
           {/* Person Service Tests */}
-          <div className="service-section">
-            <h3>Person Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllPersons', getAllPersons)}
-                disabled={loading.getAllPersons}
-                className="test-button"
-              >
-                {loading.getAllPersons ? 'Testing...' : 'Get All Persons'}
-              </button>
+          <details className="service-section" open>
+            <summary>Person Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllPersons', getAllPersons)}
+                 disabled={loading.getAllPersons}
+                 className="test-button"
+               >
+                 {loading.getAllPersons ? 'Testing...' : 'Get All Persons'}
+               </button>
               
               <div className="input-group">
                 <select
@@ -964,19 +993,19 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('deletePersonById')}
             {renderTestResult('getPersonByUsername')}
             {renderTestResult('loginPerson')}
-          </div>
+          </details>
 
           {/* User Role Service Tests */}
-          <div className="service-section">
-            <h3>User Role Service</h3>
-            <div className="test-buttons">
-              <button 
-                onClick={() => testEndpoint('getAllUserRoles', getAllUserRoles)}
-                disabled={loading.getAllUserRoles}
-                className="test-button"
-              >
-                {loading.getAllUserRoles ? 'Testing...' : 'Get All User Roles'}
-              </button>
+          <details className="service-section" open>
+            <summary>User Role Service</summary>
+             <div className="test-buttons">
+               <button 
+                 onClick={() => testEndpoint('getAllUserRoles', getAllUserRoles)}
+                 disabled={loading.getAllUserRoles}
+                 className="test-button"
+               >
+                 {loading.getAllUserRoles ? 'Testing...' : 'Get All User Roles'}
+               </button>
               
               <div className="input-group">
                 <input
@@ -1026,61 +1055,92 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             {renderTestResult('getUserRoleById')}
             {renderTestResult('deleteUserRoleById')}
             {renderTestResult('getUserRoleByType')}
-          </div>
+          </details>
 
           {/* CREATE Operations (POST) */}
-          <div className="service-section">
-            <h3>Create Operations (POST)</h3>
+          <details className="service-section" open>
+            <summary>Create Operations (POST)</summary>
             
             <div className="create-form">
               <h4>Create New Catch</h4>
               <div className="form-inputs">
                 <input
-                  type="number"
-                  placeholder="Species ID"
-                  value={inputValues.newCatch.speciesId}
-                  onChange={(e) => updateInputValue('newCatch.speciesId', e.target.value)}
+                  type="text"
+                  placeholder="Species Name"
+                  value={inputValues.newCatch.speciesName}
+                  onChange={(e) => updateInputValue('newCatch.speciesName', e.target.value)}
                   className="test-input"
                 />
                 <input
-                  type="number"
-                  placeholder="Fisher ID"
-                  value={inputValues.newCatch.fisherId}
-                  onChange={(e) => updateInputValue('newCatch.fisherId', e.target.value)}
+                  type="text"
+                  placeholder="Fisher Name"
+                  value={inputValues.newCatch.fisherName}
+                  onChange={(e) => updateInputValue('newCatch.fisherName', e.target.value)}
                   className="test-input"
                 />
                 <input
-                  type="number"
-                  placeholder="Landing ID"
-                  value={inputValues.newCatch.landingId}
-                  onChange={(e) => updateInputValue('newCatch.landingId', e.target.value)}
-                  className="test-input"
-                />
-                <input
-                  type="number"
-                  placeholder="Quantity"
-                  value={inputValues.newCatch.quantity}
-                  onChange={(e) => updateInputValue('newCatch.quantity', e.target.value)}
+                  type="text"
+                  placeholder="Landing Name"
+                  value={inputValues.newCatch.landingName}
+                  onChange={(e) => updateInputValue('newCatch.landingName', e.target.value)}
                   className="test-input"
                 />
                 <input
                   type="number"
                   step="0.01"
-                  placeholder="Price Per Kg"
-                  value={inputValues.newCatch.pricePerKg}
-                  onChange={(e) => updateInputValue('newCatch.pricePerKg', e.target.value)}
+                  placeholder="Quantity (kg)"
+                  value={inputValues.newCatch.quantityInKg}
+                  onChange={(e) => updateInputValue('newCatch.quantityInKg', e.target.value)}
                   className="test-input"
                 />
                 <input
-                  type="date"
-                  placeholder="Date Caught"
-                  value={inputValues.newCatch.dateCaught}
-                  onChange={(e) => updateInputValue('newCatch.dateCaught', e.target.value)}
+                  type="number"
+                  step="0.01"
+                  placeholder="Price"
+                  value={inputValues.newCatch.price}
+                  onChange={(e) => updateInputValue('newCatch.price', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="datetime-local"
+                  placeholder="Catch Time"
+                  value={inputValues.newCatch.timeStamp}
+                  onChange={(e) => updateInputValue('newCatch.timeStamp', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="number"
+                  step="0.000001"
+                  placeholder="Latitude"
+                  value={inputValues.newCatch.latitude}
+                  onChange={(e) => updateInputValue('newCatch.latitude', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="number"
+                  step="0.000001"
+                  placeholder="Longitude"
+                  value={inputValues.newCatch.longitude}
+                  onChange={(e) => updateInputValue('newCatch.longitude', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="datetime-local"
+                  placeholder="Pickup Time"
+                  value={inputValues.newCatch.pickupTime}
+                  onChange={(e) => updateInputValue('newCatch.pickupTime', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="text"
+                  placeholder="Pickup Instructions"
+                  value={inputValues.newCatch.pickup_instructions}
+                  onChange={(e) => updateInputValue('newCatch.pickup_instructions', e.target.value)}
                   className="test-input"
                 />
                 <button 
-                  onClick={() => testEndpoint('createCatch', () => createCatch(inputValues.newCatch))}
-                  disabled={loading.createCatch || !inputValues.newCatch.speciesId || !inputValues.newCatch.fisherId}
+                  onClick={() => testEndpoint('createCatch', () => createCatch(buildCatchPayload(inputValues.newCatch)))}
+                  disabled={loading.createCatch || !inputValues.newCatch.speciesName || !inputValues.newCatch.fisherName}
                   className="test-button create-button"
                 >
                   {loading.createCatch ? 'Creating...' : 'Create Catch'}
@@ -1092,6 +1152,13 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
             <div className="create-form">
               <h4>Create New Species</h4>
               <div className="form-inputs">
+                <input
+                  type="number"
+                  placeholder="ID (optional)"
+                  value={inputValues.newSpecies.id}
+                  onChange={(e) => updateInputValue('newSpecies.id', e.target.value)}
+                  className="test-input"
+                />
                 <input
                   type="text"
                   placeholder="Species Name"
@@ -1106,8 +1173,22 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
                   onChange={(e) => updateInputValue('newSpecies.description', e.target.value)}
                   className="test-input"
                 />
+                <input
+                  type="url"
+                  placeholder="Image URL"
+                  value={inputValues.newSpecies.imageUrl}
+                  onChange={(e) => updateInputValue('newSpecies.imageUrl', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="url"
+                  placeholder="Info Link"
+                  value={inputValues.newSpecies.infoLink}
+                  onChange={(e) => updateInputValue('newSpecies.infoLink', e.target.value)}
+                  className="test-input"
+                />
                 <button 
-                  onClick={() => testEndpoint('createSpecies', () => createSpecies(inputValues.newSpecies))}
+                  onClick={() => testEndpoint('createSpecies', () => createSpecies(buildSpeciesPayload(inputValues.newSpecies)))}
                   disabled={loading.createSpecies || !inputValues.newSpecies.name}
                   className="test-button create-button"
                 >
@@ -1365,11 +1446,11 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
               </div>
               {renderTestResult('createUserRole')}
             </div>
-          </div>
+          </details>
 
           {/* UPDATE Operations (PUT) */}
-          <div className="service-section">
-            <h3>Update Operations (PUT)</h3>
+          <details className="service-section" open>
+            <summary>Update Operations (PUT)</summary>
             
             <div className="create-form">
               <h4>Update Catch</h4>
@@ -1382,50 +1463,81 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
                   className="test-input"
                 />
                 <input
-                  type="number"
-                  placeholder="Species ID"
-                  value={inputValues.updateCatch.speciesId}
-                  onChange={(e) => updateInputValue('updateCatch.speciesId', e.target.value)}
+                  type="text"
+                  placeholder="Species Name"
+                  value={inputValues.updateCatch.speciesName}
+                  onChange={(e) => updateInputValue('updateCatch.speciesName', e.target.value)}
                   className="test-input"
                 />
                 <input
-                  type="number"
-                  placeholder="Fisher ID"
-                  value={inputValues.updateCatch.fisherId}
-                  onChange={(e) => updateInputValue('updateCatch.fisherId', e.target.value)}
+                  type="text"
+                  placeholder="Fisher Name"
+                  value={inputValues.updateCatch.fisherName}
+                  onChange={(e) => updateInputValue('updateCatch.fisherName', e.target.value)}
                   className="test-input"
                 />
                 <input
-                  type="number"
-                  placeholder="Landing ID"
-                  value={inputValues.updateCatch.landingId}
-                  onChange={(e) => updateInputValue('updateCatch.landingId', e.target.value)}
-                  className="test-input"
-                />
-                <input
-                  type="number"
-                  placeholder="Quantity"
-                  value={inputValues.updateCatch.quantity}
-                  onChange={(e) => updateInputValue('updateCatch.quantity', e.target.value)}
+                  type="text"
+                  placeholder="Landing Name"
+                  value={inputValues.updateCatch.landingName}
+                  onChange={(e) => updateInputValue('updateCatch.landingName', e.target.value)}
                   className="test-input"
                 />
                 <input
                   type="number"
                   step="0.01"
-                  placeholder="Price Per Kg"
-                  value={inputValues.updateCatch.pricePerKg}
-                  onChange={(e) => updateInputValue('updateCatch.pricePerKg', e.target.value)}
+                  placeholder="Quantity (kg)"
+                  value={inputValues.updateCatch.quantityInKg}
+                  onChange={(e) => updateInputValue('updateCatch.quantityInKg', e.target.value)}
                   className="test-input"
                 />
                 <input
-                  type="date"
-                  placeholder="Date Caught"
-                  value={inputValues.updateCatch.dateCaught}
-                  onChange={(e) => updateInputValue('updateCatch.dateCaught', e.target.value)}
+                  type="number"
+                  step="0.01"
+                  placeholder="Price"
+                  value={inputValues.updateCatch.price}
+                  onChange={(e) => updateInputValue('updateCatch.price', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="datetime-local"
+                  placeholder="Catch Time"
+                  value={inputValues.updateCatch.timeStamp}
+                  onChange={(e) => updateInputValue('updateCatch.timeStamp', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="number"
+                  step="0.000001"
+                  placeholder="Latitude"
+                  value={inputValues.updateCatch.latitude}
+                  onChange={(e) => updateInputValue('updateCatch.latitude', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="number"
+                  step="0.000001"
+                  placeholder="Longitude"
+                  value={inputValues.updateCatch.longitude}
+                  onChange={(e) => updateInputValue('updateCatch.longitude', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="datetime-local"
+                  placeholder="Pickup Time"
+                  value={inputValues.updateCatch.pickupTime}
+                  onChange={(e) => updateInputValue('updateCatch.pickupTime', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="text"
+                  placeholder="Pickup Instructions"
+                  value={inputValues.updateCatch.pickup_instructions}
+                  onChange={(e) => updateInputValue('updateCatch.pickup_instructions', e.target.value)}
                   className="test-input"
                 />
                 <button 
-                  onClick={() => testEndpoint('updateCatch', () => updateCatch(inputValues.catchId, inputValues.updateCatch))}
+                  onClick={() => testEndpoint('updateCatch', () => updateCatch(inputValues.catchId, buildCatchPayload(inputValues.updateCatch)))}
                   disabled={loading.updateCatch || !inputValues.catchId}
                   className="test-button update-button"
                 >
@@ -1495,6 +1607,13 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
                   className="test-input"
                 />
                 <input
+                  type="number"
+                  placeholder="ID (optional body)"
+                  value={inputValues.updateSpecies.id}
+                  onChange={(e) => updateInputValue('updateSpecies.id', e.target.value)}
+                  className="test-input"
+                />
+                <input
                   type="text"
                   placeholder="Species Name"
                   value={inputValues.updateSpecies.name}
@@ -1508,8 +1627,22 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
                   onChange={(e) => updateInputValue('updateSpecies.description', e.target.value)}
                   className="test-input"
                 />
+                <input
+                  type="url"
+                  placeholder="Image URL"
+                  value={inputValues.updateSpecies.imageUrl}
+                  onChange={(e) => updateInputValue('updateSpecies.imageUrl', e.target.value)}
+                  className="test-input"
+                />
+                <input
+                  type="url"
+                  placeholder="Info Link"
+                  value={inputValues.updateSpecies.infoLink}
+                  onChange={(e) => updateInputValue('updateSpecies.infoLink', e.target.value)}
+                  className="test-input"
+                />
                 <button 
-                  onClick={() => testEndpoint('updateSpecies', () => updateSpecies(inputValues.speciesId, inputValues.updateSpecies))}
+                  onClick={() => testEndpoint('updateSpecies', () => updateSpecies(inputValues.speciesId, buildSpeciesPayload(inputValues.updateSpecies)))}
                   disabled={loading.updateSpecies || !inputValues.speciesId}
                   className="test-button update-button"
                 >
@@ -1760,11 +1893,11 @@ VITE_USER_ROLE_ENDPOINT=http://localhost:8080/api/role
               </div>
               {renderTestResult('updateUserRole')}
             </div>
-          </div>
+          </details>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ServiceTest;

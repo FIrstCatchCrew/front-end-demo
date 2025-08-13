@@ -351,6 +351,53 @@
   color: var(--error-color);
 }
 
+/* Collapsible sections */
+details.service-section {
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+}
+
+details.service-section > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  margin: -1.5rem -1.5rem 1rem -1.5rem; /* extend to edges of section padding */
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+details.service-section[open] > summary {
+  background: var(--surface-color);
+}
+
+/* Remove default marker */
+details.service-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Add custom caret */
+details.service-section > summary::before {
+  content: '\25B6'; /* right-pointing triangle */
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+details.service-section[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+/* Debug section summary override */
+details.debug-section > summary {
+  background: var(--highlight-color);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .test-buttons {
