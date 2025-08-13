@@ -146,7 +146,6 @@ export function useNewCatch() {
 
       // Helpful debug in console as well
       if (import.meta?.env?.VITE_API_DEBUG === 'true') {
-        // eslint-disable-next-line no-console
         console.log('Submitting new catch payload:', payload);
       }
 

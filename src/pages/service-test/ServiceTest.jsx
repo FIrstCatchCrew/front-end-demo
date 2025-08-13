@@ -313,6 +313,15 @@ const ServiceTest = () => {
     pickup_instructions: obj.pickup_instructions || null,
   });
 
+  // Map Species payload and coerce types/nulls
+  const buildSpeciesPayload = (obj) => ({
+    id: obj.id !== '' ? Number(obj.id) : undefined,
+    name: obj.name || '',
+    description: obj.description || '',
+    imageUrl: obj.imageUrl || '',
+    infoLink: obj.infoLink || '',
+  });
+
   const renderTestResult = (endpointName) => {
     const result = testResults[endpointName];
     if (!result) return null;
