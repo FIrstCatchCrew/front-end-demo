@@ -52,7 +52,7 @@ const AvailableCatches = () => {
               <tr>
                 <th>Species</th>
                 <th>Quantity (kg)</th>
-                <th>Price/kg</th>
+                <th>Price</th>
                 <th>Fisher</th>
                 <th>Landing Port</th>
               </tr>
@@ -74,7 +74,7 @@ const AvailableCatches = () => {
                         />
                       </td>
                       <td>{c.quantityInKg}</td>
-                      <td>${c.pricePerKg.toFixed(2)}</td>
+                      <td>{typeof c.price === 'number' ? `$${c.price.toFixed(2)}` : (c.price ?? '-')}</td>
                       <td>
                         <FisherTooltip 
                           fisherName={c.fisherName} 
