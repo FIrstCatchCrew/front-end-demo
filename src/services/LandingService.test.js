@@ -26,7 +26,7 @@ describe('LandingService', () => {
 
       const result = await LandingService.getAllLandings();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/landing', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/landing', '');
       expect(result).toEqual(mockData);
     });
 
@@ -35,7 +35,7 @@ describe('LandingService', () => {
 
       const result = await LandingService.getAllLandings();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/landing', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/landing', '');
       expect(result).toEqual([]);
     });
   });
@@ -88,7 +88,7 @@ describe('LandingService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/landing',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -107,7 +107,7 @@ describe('LandingService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/landing',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -129,7 +129,7 @@ describe('LandingService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/landing',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

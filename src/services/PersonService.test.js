@@ -43,7 +43,7 @@ describe('PersonService', () => {
 
       const result = await PersonService.getAllPersons();
 
-      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/person", '/');
+      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/person", '');
       expect(result).toEqual(mockData);
     });
 
@@ -52,7 +52,7 @@ describe('PersonService', () => {
 
       const result = await PersonService.getAllPersons();
 
-      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/person", '/');
+      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/person", '');
       expect(result).toEqual([]);
     });
   });
@@ -327,7 +327,7 @@ describe('PersonService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         "http://52.3.6.17:8080/api/person",
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -350,7 +350,7 @@ describe('PersonService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         "http://52.3.6.17:8080/api/person",
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -548,7 +548,7 @@ describe('PersonService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         "http://52.3.6.17:8080/api/person",
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -35,7 +35,7 @@ describe('SpeciesService', () => {
 
       const result = await SpeciesService.getAllSpecies();
 
-      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/species", '/');
+      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/species", '');
       expect(result).toEqual(mockData);
     });
 
@@ -44,7 +44,7 @@ describe('SpeciesService', () => {
 
       const result = await SpeciesService.getAllSpecies();
 
-      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/species", '/');
+      expect(apiRequest).toHaveBeenCalledWith("http://52.3.6.17:8080/api/species", '');
       expect(result).toEqual([]);
     });
   });
@@ -113,7 +113,7 @@ describe('SpeciesService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         "http://52.3.6.17:8080/api/species",
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -135,7 +135,7 @@ describe('SpeciesService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         "http://52.3.6.17:8080/api/species",
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -298,7 +298,7 @@ describe('SpeciesService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         "http://52.3.6.17:8080/api/species",
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

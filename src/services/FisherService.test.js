@@ -29,7 +29,7 @@ describe('FisherService', () => {
 
       const result = await FisherService.getAllFishers();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.72:8080/api/fisher', '/fisher');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.72:8080/api/fisher', '');
       expect(result).toEqual(mockData);
     });
   });
@@ -112,7 +112,7 @@ describe('FisherService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.72:8080/api/fisher',
-        '/fisher',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

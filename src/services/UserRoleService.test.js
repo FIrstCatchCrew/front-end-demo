@@ -47,7 +47,7 @@ describe('UserRoleService', () => {
 
       const result = await UserRoleService.getAllUserRoles();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '');
       expect(result).toEqual(mockData);
     });
 
@@ -56,7 +56,7 @@ describe('UserRoleService', () => {
 
       const result = await UserRoleService.getAllUserRoles();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/role', '');
       expect(result).toEqual([]);
     });
 
@@ -183,7 +183,7 @@ describe('UserRoleService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/role',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -206,7 +206,7 @@ describe('UserRoleService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/role',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -229,7 +229,7 @@ describe('UserRoleService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/role',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -400,7 +400,7 @@ describe('UserRoleService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/role',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

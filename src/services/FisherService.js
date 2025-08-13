@@ -29,7 +29,7 @@ export const getSoldCatchesByFisherId = (id) => {
 
 // POST /api/fisher
 export const createFisher = (fisherData) => {
-  return apiRequest(FISHER_API_BASE_URL, '/fisher', {
+  return apiRequest(FISHER_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(fisherData),
