@@ -14,7 +14,7 @@ export const getOrderItemById = (id) => {
 
 // POST /api/order-item
 export const createOrderItem = (orderItemData) => {
-  return apiRequest(ORDER_ITEM_API_BASE_URL, '/', {
+  return apiRequest(ORDER_ITEM_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(orderItemData),

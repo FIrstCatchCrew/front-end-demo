@@ -35,7 +35,7 @@ export const searchCatches = (speciesName, landingName) => {
 
 // POST /api/catch
 export const createCatch = (newCatchData) => {
-  return apiRequest(CATCH_API_BASE_URL, '/', {
+  return apiRequest(CATCH_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(newCatchData),

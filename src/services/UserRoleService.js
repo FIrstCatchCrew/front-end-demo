@@ -26,7 +26,7 @@ export const getUserRoleByType = (type) => {
 
 // POST /api/role
 export const createUserRole = (userRoleData) => {
-  return apiRequest(USER_ROLE_API_BASE_URL, '/', {
+  return apiRequest(USER_ROLE_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userRoleData),

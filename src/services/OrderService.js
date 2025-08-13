@@ -19,7 +19,7 @@ export const getOrdersByCustomer = (username) => {
 
 // POST /api/order
 export const createOrder = (orderData) => {
-  return apiRequest(ORDER_API_BASE_URL, '/', {
+  return apiRequest(ORDER_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(orderData),

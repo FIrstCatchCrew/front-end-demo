@@ -47,7 +47,7 @@ export const loginPerson = (credentials) => {
 
 // POST /api/person
 export const createPerson = (personData) => {
-  return apiRequest(PERSON_API_BASE_URL, '/', {
+  return apiRequest(PERSON_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(personData),

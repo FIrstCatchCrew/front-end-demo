@@ -14,7 +14,7 @@ export const getLandingById = (id) => {
 
 // POST /api/landing
 export const createLanding = (landingData) => {
-  return apiRequest(LANDING_API_BASE_URL, '/', {
+  return apiRequest(LANDING_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(landingData),

@@ -14,7 +14,7 @@ export const getSpeciesById = (id) => {
 
 // POST /api/species
 export const createSpecies = (speciesData) => {
-  return apiRequest(SPECIES_API_BASE_URL, '/', {
+  return apiRequest(SPECIES_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(speciesData),
