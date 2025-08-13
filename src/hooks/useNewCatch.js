@@ -117,13 +117,19 @@ export function useNewCatch() {
     setError(null);
 
     try {
-      // Prepare the data for API submission
+      // Prepare the data for API submission (matches backend CatchCreateDTO)
       const catchData = {
-        species: { id: parseInt(formData.speciesId) },
-        fisher: { id: parseInt(formData.fisherId) },
-        landing: { id: parseInt(formData.landingId) },
+        speciesId: parseInt(formData.speciesId, 10),
+        fisherId: parseInt(formData.fisherId, 10),
+        landingId: parseInt(formData.landingId, 10),
         quantityInKg: parseFloat(formData.quantityInKg),
-        pricePerKg: parseFloat(formData.pricePerKg),
+        price: parseFloat(formData.pricePerKg), // backend expects 'price'
+        // Optional fields supported by backend (uncomment and wire inputs if needed):
+        // catchDate: '2025-05-26T10:00:00',
+        // latitude: 48,
+        // longitude: -53,
+        // pickupTime: '2025-05-26T14:00:00',
+        // pickupInstructions: 'Paid already',
       };
 
       const result = await createCatch(catchData);
