@@ -65,7 +65,7 @@ describe('AvailableCatches', () => {
             id: 1,
             speciesName: 'Salmon',
             quantityInKg: 10,
-            pricePerKg: 25.50,
+            price: 25.50,
             fisherName: 'fisher1',
             landingName: 'Port A'
           }
@@ -113,7 +113,7 @@ describe('AvailableCatches', () => {
     await waitFor(() => {
       expect(screen.getByText('Species')).toBeInTheDocument();
       expect(screen.getByText('Quantity (kg)')).toBeInTheDocument();
-      expect(screen.getByText('Price/kg')).toBeInTheDocument();
+      expect(screen.getByText('Price')).toBeInTheDocument();
       expect(screen.getByText('Fisher')).toBeInTheDocument();
       expect(screen.getByText('Landing Port')).toBeInTheDocument();
     });
