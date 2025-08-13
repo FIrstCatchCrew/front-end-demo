@@ -5,7 +5,7 @@ const PERSON_API_BASE_URL = import.meta.env.VITE_PERSON_ENDPOINT;
 
 // GET /api/person
 export const getAllPersons = () => {
-  return apiRequest(PERSON_API_BASE_URL, '/');
+  return apiRequest(PERSON_API_BASE_URL, '');
 };
 
 // GET /api/person/roles?role={role}

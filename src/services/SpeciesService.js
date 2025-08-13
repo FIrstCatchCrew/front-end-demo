@@ -4,7 +4,7 @@ const SPECIES_API_BASE_URL = import.meta.env.VITE_SPECIES_ENDPOINT;
 
 // GET /api/species
 export const getAllSpecies = () => {
-  return apiRequest(SPECIES_API_BASE_URL, '/');
+  return apiRequest(SPECIES_API_BASE_URL, '');
 };
 
 // GET /api/species/{id}

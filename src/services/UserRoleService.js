@@ -11,7 +11,7 @@ export const UserRoleType = {
 
 // GET /api/role
 export const getAllUserRoles = () => {
-  return apiRequest(USER_ROLE_API_BASE_URL, '/');
+  return apiRequest(USER_ROLE_API_BASE_URL, '');
 };
 
 // GET /api/role/{id}

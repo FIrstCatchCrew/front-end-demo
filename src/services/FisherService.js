@@ -4,7 +4,7 @@ const FISHER_API_BASE_URL = import.meta.env.VITE_FISHER_ENDPOINT;
 
 // GET /api/fisher
 export const getAllFishers = () => {
-  return apiRequest(FISHER_API_BASE_URL, '/fisher');
+  return apiRequest(FISHER_API_BASE_URL, '');
 };
 
 // GET /api/fisher/{id}

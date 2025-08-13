@@ -4,7 +4,7 @@ const LANDING_API_BASE_URL = import.meta.env.VITE_LANDING_ENDPOINT;
 
 // GET /api/landing
 export const getAllLandings = () => {
-  return apiRequest(LANDING_API_BASE_URL, '/');
+  return apiRequest(LANDING_API_BASE_URL, '');
 };
 
 // GET /api/landing/{id}

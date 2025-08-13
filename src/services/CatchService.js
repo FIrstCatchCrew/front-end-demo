@@ -4,7 +4,7 @@ const CATCH_API_BASE_URL = import.meta.env.VITE_CATCH_ENDPOINT;
 
 // GET /api/catch
 export const getAllCatches = () => {
-  return apiRequest(CATCH_API_BASE_URL, '/');
+  return apiRequest(CATCH_API_BASE_URL, '');
 };
 
 // GET /api/catch/available
