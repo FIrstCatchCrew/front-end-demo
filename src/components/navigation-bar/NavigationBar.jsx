@@ -16,7 +16,7 @@ const NavigationBar = () => {
     <nav className="navigation-bar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          FishCatch
+          FirstCatch
         </Link>
 
         <button 

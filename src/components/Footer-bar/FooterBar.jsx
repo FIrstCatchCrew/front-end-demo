@@ -28,7 +28,7 @@ const FooterBar = () => {
   return (
     <footer className="footer-bar">
       <div className="footer-container">
-        <p className="footer-text">© 2025 FishCatch. All rights reserved.</p>
+        <p className="footer-text">© 2025 FirstCatch. All rights reserved.</p>
         <nav className="footer-nav">
           <Link to="/" className="footer-link">Privacy</Link>
           <Link to="/" className="footer-link">Terms</Link>
