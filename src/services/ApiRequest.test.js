@@ -7,25 +7,34 @@ window.fetch = vi.fn();
 describe('apiRequest', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    // Reset console.error mock
+    // Silence console during tests
     vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'log').mockImplementation(() => {});
   });
 
-  it('should make a successful GET request and return JSON data', async () => {
+  it('makes a successful GET request and returns JSON', async () => {
     const mockData = { id: 1, name: 'Test' };
     window.fetch.mockResolvedValue({
       ok: true,
       status: 200,
+      headers: { get: () => 'application/json' },
       json: () => Promise.resolve(mockData),
     });
 
     const result = await apiRequest('https://api.example.com', '/test');
 
-    expect(window.fetch).toHaveBeenCalledWith('https://api.example.com/test', {});
+    expect(window.fetch).toHaveBeenCalledTimes(1);
+    const [url, opts] = window.fetch.mock.calls[0];
+    expect(url).toBe('https://api.example.com/test');
+    expect(opts.method).toBe('GET');
+    expect(opts.headers).toBeInstanceOf(Headers);
+    expect(opts.headers.get('Accept')).toBe('application/json');
+    expect(opts.headers.has('Content-Type')).toBe(false);
     expect(result).toEqual(mockData);
   });
 
-  it('should make a POST request with options', async () => {
+  it('makes a POST request and merges headers correctly', async () => {
     const mockData = { id: 1, name: 'Created' };
     const postData = { name: 'New Item' };
     const options = {
@@ -37,100 +46,107 @@ describe('apiRequest', () => {
     window.fetch.mockResolvedValue({
       ok: true,
       status: 201,
+      headers: { get: () => 'application/json' },
       json: () => Promise.resolve(mockData),
     });
 
     const result = await apiRequest('https://api.example.com', '/items', options);
 
-    expect(window.fetch).toHaveBeenCalledWith('https://api.example.com/items', options);
+    expect(window.fetch).toHaveBeenCalledTimes(1);
+    const [url, opts] = window.fetch.mock.calls[0];
+    expect(url).toBe('https://api.example.com/items');
+    expect(opts.method).toBe('POST');
+    expect(opts.body).toBe(JSON.stringify(postData));
+    expect(opts.headers).toBeInstanceOf(Headers);
+    expect(opts.headers.get('Content-Type')).toBe('application/json');
+    expect(opts.headers.get('Accept')).toBe('application/json');
     expect(result).toEqual(mockData);
   });
 
-  it('should return null for 204 No Content response', async () => {
+  it('returns null for 204 No Content', async () => {
     window.fetch.mockResolvedValue({
       ok: true,
       status: 204,
+      headers: { get: () => 'application/json' },
     });
 
     const result = await apiRequest('https://api.example.com', '/delete');
-
     expect(result).toBeNull();
   });
 
-  it('should throw error for HTTP error status with error body', async () => {
+  it('throws detailed error for HTTP 404 with body', async () => {
     const errorBody = 'Not Found';
     window.fetch.mockResolvedValue({
       ok: false,
       status: 404,
+      statusText: 'Not Found',
+      headers: { get: () => 'text/plain' },
       text: () => Promise.resolve(errorBody),
     });
 
-    await expect(apiRequest('https://api.example.com', '/notfound'))
-      .rejects
-      .toThrow('HTTP error! status: 404, body: Not Found');
-
-    expect(console.error).toHaveBeenCalledWith(
-      'API request failed for path: /notfound',
-      expect.any(Error)
+    await expect(apiRequest('https://api.example.com', '/notfound')).rejects.toThrow(
+      'HTTP 404 Not Found at https://api.example.com/notfound, body: Not Found'
     );
   });
 
-  it('should throw error for HTTP error status with empty error body', async () => {
+  it('throws detailed error for HTTP 500 without body', async () => {
     window.fetch.mockResolvedValue({
       ok: false,
       status: 500,
+      statusText: 'Internal Server Error',
+      headers: { get: () => 'text/plain' },
       text: () => Promise.resolve(''),
     });
 
-    await expect(apiRequest('https://api.example.com', '/server-error'))
-      .rejects
-      .toThrow('HTTP error! status: 500, body: ');
-  });
-
-  it('should handle network errors and log them', async () => {
-    const networkError = new Error('Network error');
-    window.fetch.mockRejectedValue(networkError);
-
-    await expect(apiRequest('https://api.example.com', '/network-fail'))
-      .rejects
-      .toThrow('Network error');
-
-    expect(console.error).toHaveBeenCalledWith(
-      'API request failed for path: /network-fail',
-      networkError
+    await expect(apiRequest('https://api.example.com', '/server-error')).rejects.toThrow(
+      'HTTP 500 Internal Server Error at https://api.example.com/server-error'
     );
   });
 
-  it('should construct the correct URL with baseUrl and path', async () => {
+  it('maps TypeError("Failed to fetch") to a user-friendly network error', async () => {
+    window.fetch.mockRejectedValue(new TypeError('Failed to fetch'));
+
+    await expect(apiRequest('https://api.example.com', '/network-fail')).rejects.toThrow(
+      /Failed to connect to server/
+    );
+    expect(window.fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('constructs the correct URL with baseUrl and path', async () => {
     window.fetch.mockResolvedValue({
       ok: true,
       status: 200,
+      headers: { get: () => 'application/json' },
       json: () => Promise.resolve({}),
     });
 
     await apiRequest('https://api.example.com', '/users/123');
 
-    expect(window.fetch).toHaveBeenCalledWith('https://api.example.com/users/123', {});
+    const [url, opts] = window.fetch.mock.calls[0];
+    expect(url).toBe('https://api.example.com/users/123');
+    expect(opts.method).toBe('GET');
   });
 
-  it('should handle baseUrl with trailing slash and path with leading slash', async () => {
+  it('handles baseUrl trailing slash and path leading slash without double slash', async () => {
     window.fetch.mockResolvedValue({
       ok: true,
       status: 200,
+      headers: { get: () => 'application/json' },
       json: () => Promise.resolve({}),
     });
 
     await apiRequest('https://api.example.com/', '/users');
 
-    expect(window.fetch).toHaveBeenCalledWith('https://api.example.com//users', {});
+    const [url] = window.fetch.mock.calls[0];
+    expect(url).toBe('https://api.example.com/users');
   });
 
-  it('should pass through all fetch options', async () => {
+  it('passes through fetch options (method, body) and augments headers', async () => {
     const options = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer token123',
+        Authorization: 'Bearer token123',
       },
       body: JSON.stringify({ data: 'test' }),
     };
@@ -138,11 +154,20 @@ describe('apiRequest', () => {
     window.fetch.mockResolvedValue({
       ok: true,
       status: 200,
+      headers: { get: () => 'application/json' },
       json: () => Promise.resolve({}),
     });
 
     await apiRequest('https://api.example.com', '/update', options);
 
-    expect(window.fetch).toHaveBeenCalledWith('https://api.example.com/update', options);
+    const [url, opts] = window.fetch.mock.calls[0];
+    expect(url).toBe('https://api.example.com/update');
+    expect(opts.method).toBe('PUT');
+    expect(opts.body).toBe(options.body);
+    expect(opts.headers).toBeInstanceOf(Headers);
+    const hdrs = Object.fromEntries(opts.headers.entries());
+    expect(hdrs['content-type']).toBe('application/json');
+    expect(hdrs['authorization']).toBe('Bearer token123');
+    expect(hdrs['accept']).toBe('application/json');
   });
 });

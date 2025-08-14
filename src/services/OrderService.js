@@ -4,7 +4,7 @@ const ORDER_API_BASE_URL = import.meta.env.VITE_ORDER_ENDPOINT;
 
 // GET /api/order
 export const getAllOrders = () => {
-  return apiRequest(ORDER_API_BASE_URL, '/');
+  return apiRequest(ORDER_API_BASE_URL, '');
 };
 
 // GET /api/order/{id}
@@ -19,7 +19,7 @@ export const getOrdersByCustomer = (username) => {
 
 // POST /api/order
 export const createOrder = (orderData) => {
-  return apiRequest(ORDER_API_BASE_URL, '/', {
+  return apiRequest(ORDER_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(orderData),

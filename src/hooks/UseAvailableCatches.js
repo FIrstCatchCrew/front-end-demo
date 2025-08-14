@@ -17,8 +17,8 @@ export function useAvailableCatches() {
 
     const [filters, setFilters] = useState({
         species: '',
-        landings: '',
-        fishers: ''
+        landing: '',
+        fisher: ''
     });
 
     const [isLoading, setIsLoading] = useState(true);
@@ -56,9 +56,13 @@ export function useAvailableCatches() {
       setIsLoading(true);
       setError(null);
       try {
-        // Use the centralized searchCatches service function
-        const data = await searchCatches(filters.species, filters.landing, filters.fisher);
-        setCatches(data);
+        // Use the centralized searchCatches service function (species, landing)
+        const data = await searchCatches(filters.species, filters.landing);
+        // Apply fisher filter client-side using catch.fisherName
+        const filtered = filters.fisher
+          ? data.filter(c => c.fisherName === filters.fisher)
+          : data;
+        setCatches(filtered);
       } catch (err) {
         console.error("Error fetching catches:", err);
         setError(err);

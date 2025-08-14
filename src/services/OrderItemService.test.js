@@ -36,7 +36,7 @@ describe('OrderItemService', () => {
 
       const result = await OrderItemService.getAllOrderItems();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order-item', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order-item', '');
       expect(result).toEqual(mockData);
     });
 
@@ -45,7 +45,7 @@ describe('OrderItemService', () => {
 
       const result = await OrderItemService.getAllOrderItems();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order-item', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order-item', '');
       expect(result).toEqual([]);
     });
   });
@@ -114,7 +114,7 @@ describe('OrderItemService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order-item',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -137,7 +137,7 @@ describe('OrderItemService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order-item',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -164,7 +164,7 @@ describe('OrderItemService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order-item',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -349,7 +349,7 @@ describe('OrderItemService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order-item',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -371,7 +371,7 @@ describe('OrderItemService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order-item',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -29,7 +29,7 @@ describe('CatchService', () => {
 
       const result = await CatchService.getAllCatches();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/catch', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/catch', '');
       expect(result).toEqual(mockData);
     });
   });
@@ -209,7 +209,7 @@ describe('CatchService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/catch',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

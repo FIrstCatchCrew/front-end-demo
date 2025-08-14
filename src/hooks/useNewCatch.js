@@ -116,17 +116,40 @@ export function useNewCatch() {
     setIsSubmitting(true);
     setError(null);
 
+    // Keep a reference to the request payload for error display
+    let payload = null;
+
     try {
-      // Prepare the data for API submission
-      const catchData = {
-        species: { id: parseInt(formData.speciesId) },
-        fisher: { id: parseInt(formData.fisherId) },
-        landing: { id: parseInt(formData.landingId) },
+      // Map selected IDs to names expected by backend CatchCreateDTO
+      const species = dropdownOptions.species.find(s => String(s.id) === String(formData.speciesId));
+      const fisher = dropdownOptions.fishers.find(f => String(f.id) === String(formData.fisherId));
+      const landing = dropdownOptions.landings.find(l => String(l.id) === String(formData.landingId));
+
+      if (!species || !fisher || !landing) {
+        throw new Error('Selected species, fisher, or landing is no longer available. Please refresh and try again.');
+      }
+
+      // Prepare the data for API submission (backend expects IDs)
+      payload = {
+        speciesId: Number(formData.speciesId),
+        fisherId: Number(formData.fisherId),
+        landingId: Number(formData.landingId),
         quantityInKg: parseFloat(formData.quantityInKg),
-        pricePerKg: parseFloat(formData.pricePerKg),
+        price: parseFloat(formData.pricePerKg), // backend expects 'price'
+        // Optional fields supported by backend (uncomment and wire inputs if needed):
+        // timeStamp: '2025-05-26T10:00:00',
+        // latitude: 48,
+        // longitude: -53,
+        // pickupTime: '2025-05-26T14:00:00',
+        // pickup_instructions: 'Paid already',
       };
 
-      const result = await createCatch(catchData);
+      // Helpful debug in console as well
+      if (import.meta?.env?.VITE_API_DEBUG === 'true') {
+        console.log('Submitting new catch payload:', payload);
+      }
+
+      const result = await createCatch(payload);
       
       // Reset form on success
       setFormData({
@@ -142,8 +165,13 @@ export function useNewCatch() {
       
       return result;
     } catch (err) {
-      console.error("Error creating catch:", err);
-      setError(err);
+      console.error('Error creating catch:', err);
+      // Attach payload to error so the page can render it
+      setError({
+        message: err?.message || 'Failed to create catch',
+        payload,
+        cause: err,
+      });
     } finally {
       setIsSubmitting(false);
     }

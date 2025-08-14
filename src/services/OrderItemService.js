@@ -4,7 +4,7 @@ const ORDER_ITEM_API_BASE_URL = import.meta.env.VITE_ORDER_ITEM_ENDPOINT;
 
 // GET /api/order-item
 export const getAllOrderItems = () => {
-  return apiRequest(ORDER_ITEM_API_BASE_URL, '/');
+  return apiRequest(ORDER_ITEM_API_BASE_URL, '');
 };
 
 // GET /api/order-item/{id}
@@ -14,7 +14,7 @@ export const getOrderItemById = (id) => {
 
 // POST /api/order-item
 export const createOrderItem = (orderItemData) => {
-  return apiRequest(ORDER_ITEM_API_BASE_URL, '/', {
+  return apiRequest(ORDER_ITEM_API_BASE_URL, '', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(orderItemData),

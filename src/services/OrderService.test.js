@@ -38,7 +38,7 @@ describe('OrderService', () => {
 
       const result = await OrderService.getAllOrders();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order', '');
       expect(result).toEqual(mockData);
     });
 
@@ -47,7 +47,7 @@ describe('OrderService', () => {
 
       const result = await OrderService.getAllOrders();
 
-      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order', '/');
+      expect(apiRequest).toHaveBeenCalledWith('http://52.3.6.17:8080/api/order', '');
       expect(result).toEqual([]);
     });
   });
@@ -216,7 +216,7 @@ describe('OrderService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -240,7 +240,7 @@ describe('OrderService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -267,7 +267,7 @@ describe('OrderService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -511,7 +511,7 @@ describe('OrderService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -540,7 +540,7 @@ describe('OrderService', () => {
 
       expect(apiRequest).toHaveBeenCalledWith(
         'http://52.3.6.17:8080/api/order',
-        '/',
+        '',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
