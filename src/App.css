@@ -40,7 +40,7 @@
 }
 
 /* Dark mode colors */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --primary-color: #42a5f5;
     --secondary-color: #ffeb3b;
@@ -67,20 +67,20 @@
     --shadow-medium: rgba(255, 255, 255, 0.1);
     --shadow-heavy: rgba(255, 255, 255, 0.15);
   }
-}
+} */
 
 /* Allow manual dark mode override */
 [data-theme="dark"] {
-  --primary-color: #42a5f5;
-  --secondary-color: #ffeb3b;
-  --background-color: #121212;
-  --surface-color: #1e1e1e;
-  --text-color: #ffffff;
-  --text-muted: #b0b0b0;
-  --border-color: #333333;
+  --primary-color: #a1b0bb;
+  --secondary-color: whitesmoke;
+  --background-color: #1e292f;
+  --surface-color: #28404c;
+  --text-color: #ccd3d9;
+  /* --text-muted: #b0b0b0; */
+  --border-color: #ccd3d9;
   --border-color-hover: #555555;
-  --highlight-color: rgba(66, 165, 245, 0.15);
-  --success-color: #66bb6a;
+  --highlight-color: rgba(108, 135, 149, 0.45);
+  /* --success-color: #66bb6a;
   --success-bg-color: #1b5e20;
   --success-border-color: #2e7d32;
   --error-color: #ef5350;
@@ -94,7 +94,7 @@
   --disabled-color: #666666;
   --shadow-light: rgba(255, 255, 255, 0.05);
   --shadow-medium: rgba(255, 255, 255, 0.1);
-  --shadow-heavy: rgba(255, 255, 255, 0.15);
+  --shadow-heavy: rgba(255, 255, 255, 0.15); */
 }
 
 /* Universal box-sizing */
@@ -214,11 +214,11 @@
   .page-header {
     padding: 1.5rem 1.5rem 1rem 1.5rem;
   }
-  
+
   .page-title {
     font-size: 1.75rem;
   }
-  
+
   .page-content {
     padding: 1.5rem;
   }
@@ -228,11 +228,11 @@
   .page-header {
     padding: 1rem 1rem 0.75rem 1rem;
   }
-  
+
   .page-title {
     font-size: 1.5rem;
   }
-  
+
   .page-content {
     padding: 1rem;
   }
