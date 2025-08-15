@@ -1,3 +1,11 @@
+.marketplace-container {
+  position: relative;
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  border: 1px solid var(--border-color);
+  overflow: visible; /* allow tooltips to overflow */
+}
 .marketplace-container h2 {
   text-align: center;
   color: var(--primary-color);
@@ -33,10 +41,10 @@
   width: 100%;
   border-collapse: collapse;
   background-color: var(--surface-color);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px var(--shadow-light);
-  border: 1px solid var(--border-color);
+  border-radius: 0; /* rounding handled by container */
+  overflow: visible; /* prevent clipping tooltips */
+  box-shadow: none; /* shadow handled by container */
+  border: none;     /* border handled by container */
 }
 
 .marketplace-container thead {
@@ -63,8 +71,8 @@
 
 .marketplace-container tbody tr:hover {
   background-color: var(--highlight-color);
-  transform: scale(1.01);
-  box-shadow: 0 2px 8px var(--shadow-medium);
+  /* Avoid transform to prevent new stacking context that can cover tooltips */
+  box-shadow: inset 0 0 0 9999px transparent; /* subtle effect without transform */
 }
 
 .marketplace-container td {
@@ -72,6 +80,8 @@
   border-bottom: 1px solid var(--border-color);
   color: var(--text-color);
   font-size: 0.95rem;
+  position: relative; /* allow absolutely-positioned tooltip children to overflow */
+  overflow: visible;
 }
 
 /* .marketplace-container td:last-child {

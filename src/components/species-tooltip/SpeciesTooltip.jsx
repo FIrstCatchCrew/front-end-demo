@@ -23,7 +23,7 @@ const SpeciesTooltip = ({ speciesName, speciesData }) => {
       </span>
       
       {isVisible && speciesData && (
-        <div className="species-tooltip">
+        <div className="species-tooltip app-tooltip">
           <div className="tooltip-content">
             <div className="tooltip-header">
               {speciesData.imageUrl && (

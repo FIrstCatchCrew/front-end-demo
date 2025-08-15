@@ -25,6 +25,13 @@
   --shadow-medium: rgba(0, 0, 0, 0.15);
   --shadow-heavy: rgba(0, 0, 0, 0.25);
 
+  /* Global z-index scale (shared across components) */
+  --z-base: 0;          /* normal content */
+  --z-dropdown: 900;    /* dropdowns, menus */
+  --z-tooltip: 2000;    /* all tooltips */
+  --z-sticky: 2500;     /* sticky headers, bars */
+  --z-modal: 4000;      /* dialogs, overlays */
+
   /* Layout variables */
   --container-max-width: 1440px;
   --content-max-width: 1200px;
@@ -164,6 +171,11 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px var(--shadow-light);
   border: 1px solid var(--border-color);
+}
+
+/* Shared tooltip utility: apply consistent stacking context */
+.app-tooltip {
+  z-index: var(--z-tooltip);
 }
 
 /* Standard page container for all pages */
