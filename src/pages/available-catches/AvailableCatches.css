@@ -32,7 +32,7 @@
   font-size: 1.1rem;
   padding: 2rem;
   background-color: var(--background-color);
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid var(--border-color);
 }
 
@@ -44,7 +44,7 @@
   border-radius: 0; /* rounding handled by container */
   overflow: visible; /* prevent clipping tooltips */
   box-shadow: none; /* shadow handled by container */
-  border: none;     /* border handled by container */
+  border: none; /* border handled by container */
 }
 
 .marketplace-container thead {

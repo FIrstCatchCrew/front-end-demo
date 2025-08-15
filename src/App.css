@@ -26,11 +26,11 @@
   --shadow-heavy: rgba(0, 0, 0, 0.25);
 
   /* Global z-index scale (shared across components) */
-  --z-base: 0;          /* normal content */
-  --z-dropdown: 900;    /* dropdowns, menus */
-  --z-tooltip: 2000;    /* all tooltips */
-  --z-sticky: 2500;     /* sticky headers, bars */
-  --z-modal: 4000;      /* dialogs, overlays */
+  --z-base: 0; /* normal content */
+  --z-dropdown: 900; /* dropdowns, menus */
+  --z-tooltip: 2000; /* all tooltips */
+  --z-sticky: 2500; /* sticky headers, bars */
+  --z-modal: 4000; /* dialogs, overlays */
 
   /* Layout variables */
   --container-max-width: 1440px;
@@ -75,7 +75,7 @@
   --secondary-color: whitesmoke;
   --background-color: #1e292f;
   --surface-color: #28404c;
-  --text-color: #ccd3d9;
+  --text-color: whitesmoke;
   /* --text-muted: #b0b0b0; */
   --border-color: #ccd3d9;
   --border-color-hover: #555555;

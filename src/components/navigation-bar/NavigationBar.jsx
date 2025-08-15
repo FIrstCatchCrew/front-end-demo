@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import './NavigationBar.css';
+import "./NavigationBar.css";
 
 const NavigationBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,11 +16,11 @@ const NavigationBar = () => {
     <nav className="navigation-bar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          FishCatch
+          FirstCatch
         </Link>
 
-        <button 
-          className={`nav-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+        <button
+          className={`nav-toggle ${isMobileMenuOpen ? "active" : ""}`}
           onClick={toggleMobileMenu}
           aria-label="Toggle navigation menu"
         >
@@ -29,29 +29,31 @@ const NavigationBar = () => {
           <span className="nav-toggle-line"></span>
         </button>
 
-        <ul className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+        <ul className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
           <li className="nav-item">
-            <Link 
-              to="/" 
-              className={`nav-link ${isActive('/') ? 'active' : ''}`}
+            <Link
+              to="/"
+              className={`nav-link ${isActive("/") ? "active" : ""}`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Home
             </Link>
           </li>
           <li className="nav-item">
-            <Link 
-              to="/new-catch" 
-              className={`nav-link ${isActive('/new-catch') ? 'active' : ''}`}
+            <Link
+              to="/new-catch"
+              className={`nav-link ${isActive("/new-catch") ? "active" : ""}`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               New Catch
             </Link>
           </li>
           <li className="nav-item">
-            <Link 
-              to="/available-catches" 
-              className={`nav-link ${isActive('/available-catches') ? 'active' : ''}`}
+            <Link
+              to="/available-catches"
+              className={`nav-link ${
+                isActive("/available-catches") ? "active" : ""
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Available Catches
@@ -62,6 +64,5 @@ const NavigationBar = () => {
     </nav>
   );
 };
-
 
 export default NavigationBar;
