@@ -23,7 +23,7 @@ const FisherTooltip = ({ fisherName, fisherData }) => {
       </span>
       
       {isVisible && fisherData && (
-        <div className="fisher-tooltip">
+        <div className="fisher-tooltip app-tooltip">
           <div className="tooltip-content">
             <div className="tooltip-header">
               {fisherData.person?.profileImageUrl && (

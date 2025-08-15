@@ -1,8 +1,8 @@
-import { useAvailableCatches } from '../../hooks/UseAvailableCatches';
+import { useAvailableCatches } from "../../hooks/UseAvailableCatches";
 import FilterSelectionDropdown from "../../components/Filter-Selection-Dropdown/FilterSelectionDropdown";
-import SpeciesTooltip from '../../components/species-tooltip/SpeciesTooltip';
-import FisherTooltip from '../../components/fisher-tooltip/FisherTooltip';
-import './AvailableCatches.css';
+import SpeciesTooltip from "../../components/species-tooltip/SpeciesTooltip";
+import FisherTooltip from "../../components/fisher-tooltip/FisherTooltip";
+import "./AvailableCatches.css";
 
 const AvailableCatches = () => {
   const {
@@ -39,7 +39,10 @@ const AvailableCatches = () => {
             name="fisher"
             value={filters.fisher}
             onChange={handleFilterChange}
-            options={filterOptions.fishers.map(f => ({ id: f.id, name: f.userName }))}
+            options={filterOptions.fishers.map((f) => ({
+              id: f.id,
+              name: f.userName,
+            }))}
             defaultOptionLabel="All Fishers"
           />
         </div>
@@ -47,55 +50,73 @@ const AvailableCatches = () => {
         {isLoading && <p>Loading...</p>}
         {error && <p>Error loading data: {error.message}</p>}
         {!isLoading && !error && (
-          <table>
-            <thead>
-              <tr>
-                <th>Species</th>
-                <th>Quantity (kg)</th>
-                <th>Price</th>
-                <th>Fisher</th>
-                <th>Landing Port</th>
-              </tr>
-            </thead>
-            <tbody>
-              {catches.length > 0 ? (
-                catches.map(c => {
-                  // Find species data for this catch
-                  const speciesInfo = filterOptions.species.find(s => s.name === c.speciesName);
-                  // Find fisher data for this catch
-                  const fisherInfo = filterOptions.fishers.find(f => f.person?.username === c.fisherName || f.userName === c.fisherName);
-                  
-                  return (
-                    <tr key={c.id}>
-                      <td>
-                        <SpeciesTooltip 
-                          speciesName={c.speciesName} 
-                          speciesData={speciesInfo}
-                        />
-                      </td>
-                      <td>{c.quantityInKg}</td>
-                      <td>{typeof c.price === 'number' ? `$${c.price.toFixed(2)}` : (c.price ?? '-')}</td>
-                      <td>
-                        <FisherTooltip 
-                          fisherName={c.fisherName} 
-                          fisherData={fisherInfo}
-                        />
-                      </td>
-                      <td>{c.landingName}</td>
-                    </tr>
-                  );
-                })
-              ) : (
+          <div className="marketplace-container">
+            <table className="available-catches-table">
+              <colgroup>
+                <col className="col-species" /> {/* Species */}
+                <col className="col-qty" /> {/* Quantity */}
+                <col className="col-price" /> {/* Price */}
+                <col className="col-fisher" /> {/* Fisher */}
+                <col className="col-landing" /> {/* Landing */}
+              </colgroup>
+              <thead>
                 <tr>
-                  <td colSpan="5">No catches match your criteria.</td>
+                  <th>Species</th>
+                  <th>Quantity (kg)</th>
+                  <th>Price</th>
+                  <th>Fisher</th>
+                  <th>Landing Port</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {catches.length > 0 ? (
+                  catches.map((c) => {
+                    // Find species data for this catch
+                    const speciesInfo = filterOptions.species.find(
+                      (s) => s.name === c.speciesName
+                    );
+                    // Find fisher data for this catch
+                    const fisherInfo = filterOptions.fishers.find(
+                      (f) =>
+                        f.person?.username === c.fisherName ||
+                        f.userName === c.fisherName
+                    );
+
+                    return (
+                      <tr key={c.id}>
+                        <td>
+                          <SpeciesTooltip
+                            speciesName={c.speciesName}
+                            speciesData={speciesInfo}
+                          />
+                        </td>
+                        <td>{c.quantityInKg}</td>
+                        <td>
+                          {typeof c.price === "number"
+                            ? `$${c.price.toFixed(2)}`
+                            : c.price ?? "-"}
+                        </td>
+                        <td>
+                          <FisherTooltip
+                            fisherName={c.fisherName}
+                            fisherData={fisherInfo}
+                          />
+                        </td>
+                        <td>{c.landingName}</td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="5">No catches match your criteria.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
   );
-}
-
+};
 export default AvailableCatches;

@@ -25,6 +25,13 @@
   --shadow-medium: rgba(0, 0, 0, 0.15);
   --shadow-heavy: rgba(0, 0, 0, 0.25);
 
+  /* Global z-index scale (shared across components) */
+  --z-base: 0; /* normal content */
+  --z-dropdown: 900; /* dropdowns, menus */
+  --z-tooltip: 2000; /* all tooltips */
+  --z-sticky: 2500; /* sticky headers, bars */
+  --z-modal: 4000; /* dialogs, overlays */
+
   /* Layout variables */
   --container-max-width: 1440px;
   --content-max-width: 1200px;
@@ -33,7 +40,7 @@
 }
 
 /* Dark mode colors */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --primary-color: #42a5f5;
     --secondary-color: #ffeb3b;
@@ -60,20 +67,21 @@
     --shadow-medium: rgba(255, 255, 255, 0.1);
     --shadow-heavy: rgba(255, 255, 255, 0.15);
   }
-}
+} */
 
 /* Allow manual dark mode override */
 [data-theme="dark"] {
-  --primary-color: #42a5f5;
-  --secondary-color: #ffeb3b;
-  --background-color: #121212;
-  --surface-color: #1e1e1e;
-  --text-color: #ffffff;
+  --primary-color: #a1b0bb;
+  --secondary-color: whitesmoke;
+  --background-color: #1e292f;
+  --surface-color: #28404c;
+  --text-color: whitesmoke;
+  --text-color-hover: #ee0;
   --text-muted: #b0b0b0;
-  --border-color: #333333;
+  --border-color: #ccd3d9;
   --border-color-hover: #555555;
-  --highlight-color: rgba(66, 165, 245, 0.15);
-  --success-color: #66bb6a;
+  --highlight-color: rgba(108, 135, 149, 0.45);
+  /* --success-color: #66bb6a;
   --success-bg-color: #1b5e20;
   --success-border-color: #2e7d32;
   --error-color: #ef5350;
@@ -87,7 +95,7 @@
   --disabled-color: #666666;
   --shadow-light: rgba(255, 255, 255, 0.05);
   --shadow-medium: rgba(255, 255, 255, 0.1);
-  --shadow-heavy: rgba(255, 255, 255, 0.15);
+  --shadow-heavy: rgba(255, 255, 255, 0.15); */
 }
 
 /* Universal box-sizing */
@@ -166,6 +174,11 @@
   border: 1px solid var(--border-color);
 }
 
+/* Shared tooltip utility: apply consistent stacking context */
+.app-tooltip {
+  z-index: var(--z-tooltip);
+}
+
 /* Standard page container for all pages */
 .page-container {
   width: 100%;
@@ -202,11 +215,11 @@
   .page-header {
     padding: 1.5rem 1.5rem 1rem 1.5rem;
   }
-  
+
   .page-title {
     font-size: 1.75rem;
   }
-  
+
   .page-content {
     padding: 1.5rem;
   }
@@ -216,11 +229,11 @@
   .page-header {
     padding: 1rem 1rem 0.75rem 1rem;
   }
-  
+
   .page-title {
     font-size: 1.5rem;
   }
-  
+
   .page-content {
     padding: 1rem;
   }

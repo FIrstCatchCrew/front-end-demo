@@ -1,11 +1,11 @@
 import React from "react";
-import './Home.css';
+import "./Home.css";
 
 const Home = () => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Welcome to FishCatch</h1>
+        <h1 className="page-title">Welcome to FirstCatch</h1>
       </div>
       <div className="page-content">
         <p>Your marketplace for fresh catches from local fishers.</p>

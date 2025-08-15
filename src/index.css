@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Segoe UI', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
@@ -22,7 +22,12 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   line-height: 1.2;
   font-weight: 600;
@@ -73,7 +78,9 @@ button:disabled {
   cursor: not-allowed;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   font-size: 1em;
   background-color: var(--surface-color);
@@ -83,7 +90,9 @@ input, select, textarea {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px var(--highlight-color);
