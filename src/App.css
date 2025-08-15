@@ -76,7 +76,8 @@
   --background-color: #1e292f;
   --surface-color: #28404c;
   --text-color: whitesmoke;
-  /* --text-muted: #b0b0b0; */
+  --text-color-hover: #ee0;
+  --text-muted: #b0b0b0;
   --border-color: #ccd3d9;
   --border-color-hover: #555555;
   --highlight-color: rgba(108, 135, 149, 0.45);

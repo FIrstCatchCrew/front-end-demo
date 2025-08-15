@@ -36,7 +36,7 @@
 }
 
 .fisher-tooltip::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -8px;
   left: 50%;
@@ -49,7 +49,7 @@
 }
 
 .fisher-tooltip::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -7px;
   left: 50%;
