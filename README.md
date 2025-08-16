@@ -1,6 +1,6 @@
 # Front-End Demo (React + Vite)
 
-[!/firstCatchLight.svg]
+![FirstCatch Logo](./public/firstCatch.svg)
 
 React + Vite single-page app for exploring FirstCatch services. Includes routing, a centralized API layer, and a built-in ServiceTest page to exercise endpoints.
 
