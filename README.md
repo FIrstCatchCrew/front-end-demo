@@ -1,6 +1,6 @@
 # Front-End Demo (React + Vite)
 
-React + Vite single-page app for exploring FishCatch services. Includes routing, a centralized API layer, and a built-in ServiceTest page to exercise endpoints.
+React + Vite single-page app for exploring FirstCatch services. Includes routing, a centralized API layer, and a built-in ServiceTest page to exercise endpoints.
 
 ## Tech stack
 - React, React Router
