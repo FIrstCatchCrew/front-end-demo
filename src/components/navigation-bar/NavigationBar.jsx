@@ -16,7 +16,11 @@ const NavigationBar = () => {
     <nav className="navigation-bar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          FirstCatch
+          <img
+            src="/firstCatchDark.svg"
+            alt="FirstCatch Logo"
+            style={{ width: "200px", paddingTop: "25px" }}
+          />
         </Link>
 
         <button
